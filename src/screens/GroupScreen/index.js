@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import GroupList from '../../components/GroupList'
 import {styles} from './style'
@@ -9,6 +9,12 @@ const GroupScreen = () => {
         <Text style={styles.groupTitle}>You are all settled up!</Text>
         <View>
             <GroupList/>
+        </View>
+        <View style={{alignItems: 'center'}}>
+            <TouchableOpacity style={{padding: 15, borderColor: '#000', borderWidth: 1, flexDirection: 'row'}}>
+                <Image style={{width: 20, height: 20}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/359/359657.png'}}/>
+                <Text>Add more friends</Text>
+            </TouchableOpacity>
         </View>
     </View>
   )
