@@ -12,7 +12,7 @@ const GroupScreen = () => {
         </View>
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity style={{padding: 15, borderColor: '#000', borderWidth: 1, flexDirection: 'row'}}>
-                <Image style={{width: 20, height: 20}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/359/359657.png'}}/>
+                <Image style={{width: 20, height: 20, marginRight: 5}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/359/359657.png'}}/>
                 <Text>Add more friends</Text>
             </TouchableOpacity>
         </View>
