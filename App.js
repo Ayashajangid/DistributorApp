@@ -1,12 +1,14 @@
 import React from 'react';
-import {View} from 'react-native';
-import GroupScreen from './src/screens/GroupScreen';
+import {Provider} from 'react-redux';
+import configureStore from './src/store/store.js';
+import MainNavigation from './src/navigation/MainNavigation.js';
 
+const store = configureStore();
 const App = () => {
   return (
-    <View>
-      <GroupScreen />
-    </View>
+    <Provider store={store}>
+      <MainNavigation />
+    </Provider>
   );
 };
 

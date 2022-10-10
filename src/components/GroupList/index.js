@@ -1,54 +1,45 @@
-import { View, Text, FlatList, Image } from 'react-native'
-import React from 'react'
-import { styles } from './style'
+import {View, Text, FlatList, Image} from 'react-native';
+import React from 'react';
+import {styles} from './style';
+import {useSelector} from 'react-redux';
+import Spacer from '../Spacer';
+import {hp} from '../../utility/responsive/responsive';
 
 const GroupList = () => {
-    const groupData = [
-        // {
-        //     icon: 'https://snack-web-player.s3.us-west-1.amazonaws.com/v2/46/static/media/react-native-logo.79778b9e.png',
-        //     title: 'Trip Group 1',
-        //     subTitle: 'setteld up'
-        // },
-        // {
-        //     icon: 'https://snack-web-player.s3.us-west-1.amazonaws.com/v2/46/static/media/react-native-logo.79778b9e.png',
-        //     title: 'Trip Group 2',
-        //     subTitle: 'no expenses'
-        // },
-        // {
-        //     icon: 'https://snack-web-player.s3.us-west-1.amazonaws.com/v2/46/static/media/react-native-logo.79778b9e.png',
-        //     title: 'Trip Group 3',
-        //     subTitle: 'no expenses'
-        // },
-    ]
+  const groupData = useSelector(state => state.group.group);
 
-    const renderData = ({ item }) => {
-        return (
-            <View>
-                <Image
-                    style={{ width: 100, height: 100 }}
-                    source={{
-                        uri: item.icon,
-                    }}
-                />
-                <Text>{item.title}</Text>
-                <Text>{item.subTitle}</Text>
-            </View>
-        )
-    }
+  const renderData = ({item}) => {
     return (
-        <View style={styles.container}>
-            {groupData.length > 0 ? <FlatList
-                data={groupData}
-                renderItem={(item) => renderData(item)}
-            />
-            :
-            <View style={styles.container}>
-                <Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEsH_QjGoSXRxS0Kvh-zaUwTr1QH5_e7WWFQ&usqp=CAU' }} style={{ width: 250, height: 250 }} />
-            <Text style={styles.subHeading}>No friends to show.</Text>
-            </View>
-            }
+      <View>
+        <Image
+          style={{width: 100, height: 100}}
+          source={{
+            uri: item.icon,
+          }}
+        />
+        <Text>{item.title}</Text>
+        <Text>{item.subTitle}</Text>
+      </View>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      {groupData.length > 0 ? (
+        <FlatList data={groupData} renderItem={({item}) => renderData(item)} />
+      ) : (
+        <View>
+          <Image
+            source={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoWQPV6xzAZwNUIg3kCtw7PcTl1wTEmqYMgA&usqp=CAU',
+            }}
+            style={{width: 300, height: 300}}
+          />
+          <Text style={styles.subHeading}>No friends to show.</Text>
+          <Spacer height={hp(3)} />
         </View>
-    )
-}
+      )}
+    </View>
+  );
+};
 
-export default GroupList
+export default GroupList;
