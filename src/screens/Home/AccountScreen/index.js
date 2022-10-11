@@ -8,18 +8,26 @@ import {hp} from '../../../utility/responsive/responsive';
 
 const AccountScreen = () => {
   const res = useSelector(state => state.google.data);
+  console.log(res);
+  const image =
+    res?.user?.photoURL ||
+    'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
+  const name = res?.user?.displayName || res.nameEmail;
+  const email = res?.user?.email;
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView style={styles.mainContainer}>
         <View style={styles.itemCenterView}>
           <Image
-            style={{width: 100, height: 100, borderRadius: 100}}
-            source={{uri: res.user.photoURL}}
+            style={styles.imageStyle}
+            source={{
+              uri: image,
+            }}
           />
           <Spacer height={hp(1)} />
-          <Text style={styles.userName}>{res.user.displayName}</Text>
+          <Text style={styles.userName}>{name}</Text>
           <Spacer height={hp(1)} />
-          <Text style={styles.userEmail}>{res.user.email}</Text>
+          <Text style={styles.userEmail}>{email}</Text>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

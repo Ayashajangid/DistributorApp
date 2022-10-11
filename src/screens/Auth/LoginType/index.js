@@ -65,7 +65,7 @@ const LoginType = ({navigation}) => {
         <Spacer height={hp(3)} />
         <AdaptiveButton
           onPress={Login}
-          title="Signup with Google"
+          title={AppLocalizedStrings.authButton.google}
           // style={{ alignSelf: 'center'}}
         />
       </KeyboardAvoidingView>
