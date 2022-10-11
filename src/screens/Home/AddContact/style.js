@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {hp, wp} from '../../../utility/responsive/responsive';
-
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -10,24 +9,23 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginHorizontal: wp(5),
+    paddingTop: hp(2),
   },
-  itemCenterView: {
-    alignItems: 'center',
-    marginVertical: hp(2),
+  buttonStyle: {
+    width: wp(60),
+    alignSelf: 'center',
   },
-  userName: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000',
+  textInput: {
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    height: 30,
+    textAlign: 'left',
+    paddingHorizontal: 0,
+    borderRadius: 0,
   },
-  userEmail: {
+  title: {
     fontSize: 15,
-    fontWeight: '400',
+    fontWeight: '600',
     color: '#000',
-  },
-  imageStyle: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
   },
 });

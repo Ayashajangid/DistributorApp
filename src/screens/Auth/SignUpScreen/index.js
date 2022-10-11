@@ -31,6 +31,7 @@ const SignUpScreen = () => {
         <AdaptiveTextInput
           placeholder={AppLocalizedStrings.signUp.createPassword}
           style={styles.alignPlaceholder}
+          secureTextEntry={true}
         />
         <Spacer height={20} />
         <AdaptiveButton title={AppLocalizedStrings.authButton.signUp} />
