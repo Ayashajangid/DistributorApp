@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import { hp } from '../../utility/responsive/responsive';
 export const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   subHeading: {
     fontSize: 16,
@@ -10,4 +11,18 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'gray',
   },
+  groupOuterSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: hp(2)
+  },
+  groupName: {
+    fontSize: 20,
+    color: '#000',
+    fontWeight: 'bold'
+  },
+  groupType: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  }
 });
