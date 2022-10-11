@@ -13,4 +13,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 20,
   },
+  imageStyle: {
+    width: 250,
+    height: 250,
+  },
 });

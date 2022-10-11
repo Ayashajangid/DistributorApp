@@ -1,5 +1,6 @@
 export const CHANGE_ROUTE = 'CHANGE_ROUTE';
 export const ADD_GROUP = 'ADD_GROUP';
+export const GOOGLE_DATA = 'GOOGLE_DATA';
 
 export function changeRoute(num) {
   return {
@@ -10,6 +11,12 @@ export function changeRoute(num) {
 export function addGroup(data) {
   return {
     type: ADD_GROUP,
+    payload: data,
+  };
+}
+export function googleData(data) {
+  return {
+    type: GOOGLE_DATA,
     payload: data,
   };
 }
