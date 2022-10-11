@@ -3,7 +3,7 @@ import AuthStack from './AuthStack/AuthStack';
 import HomeStack from './HomeStack/HomeStack';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {changeRoute} from '../store/action/actions';
+import {changeRoute, googleData} from '../store/action/actions';
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
@@ -12,9 +12,12 @@ const MainNavigation = () => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('userLogin');
-      return jsonValue != null
-        ? dispatch(changeRoute(2))
-        : dispatch(changeRoute(1));
+      if (jsonValue != null) {
+        dispatch(changeRoute(2));
+        dispatch(googleData(JSON.parse(jsonValue)));
+      } else {
+        dispatch(changeRoute(1));
+      }
     } catch (e) {
       // error reading value
     }

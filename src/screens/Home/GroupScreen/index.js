@@ -12,21 +12,22 @@ import {hp, wp} from '../../../utility/responsive/responsive';
 import Spacer from '../../../components/Spacer';
 import AddGroupModel from '../../../Model/AddGroupModel';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {logout} from '../../../firebaseAuth/auth';
 
 const GroupScreen = () => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
+
   const newGroupHandler = () => {
     setIsVisible(true);
   };
 
-  const logoutHandler = () => {
-    removeData();
-  };
-  const removeData = async () => {
+  const logoutHandler = async () => {
+    const res = logout();
     await AsyncStorage.removeItem('userLogin');
     dispatch(changeRoute(1));
   };
+
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView style={styles.mainContainer}>
