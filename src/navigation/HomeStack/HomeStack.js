@@ -3,6 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabStack from '../TabStack/TabStack';
+import AddExpense from '../../screens/addExpense';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,11 @@ const HomeStack = () => {
         <Stack.Screen
           name="Home"
           component={TabStack}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddExpense"
+          component={AddExpense}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -1,25 +1,119 @@
-import {View, Text, TouchableOpacity, Modal, SafeAreaView} from 'react-native';
-import React from 'react';
-import {styles} from './style';
+import { View, Text, TouchableOpacity, Modal, SafeAreaView, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { TextInput } from 'react-native-paper';
+import { hp } from '../../utility/responsive/responsive';
+import Spacer from '../../components/Spacer';
+import { addGroup } from '../../store/action/actions';
+import { useDispatch } from 'react-redux';
+import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
+import { planImage } from '../../images/white-plane.png'
 
-const AddGroupModel = props => {
+const AddGroupModel = (props) => {
+  const [groupName, setGroupName] = useState('')
+  const [groupType, setGroupType] = useState('')
+  const dispatch = useDispatch();
+  const typeList = [
+    {
+      title: 'Trip',
+      icon: 'airplane-outline'
+    },
+    {
+      title: 'Home',
+      icon: 'home-outline'
+    },
+    {
+      title: 'Couple',
+      icon: 'heart-outline'
+    },
+    {
+      title: 'Other',
+      icon: 'ios-file-tray-full-outline'
+    }
+  ]
+
+  const renderGroupType = ({ item }) => {
+    return (
+      <TouchableOpacity style={[styles.typeSection, groupType === item.title && styles.selectedTypeSection]} onPress={() => setGroupType(item.title)}>
+        <Icon name={item.icon} color={groupType === item.title ? '#599f8b' : '#7f8188'} size={20} />
+        <Text style={[styles.typeTitle, { color: groupType === item.title ? '#599f8b' : '#7f8188' }]}>{item.title}</Text>
+      </TouchableOpacity>
+    )
+  }
+
+
+  const handleGroupData = () => {
+    let groupData = {
+      groupName: groupName,
+      groupType: groupType,
+      groupLogo: ''
+    }
+    dispatch(addGroup(groupData))
+    props.onPress()
+    setGroupName('')
+    setGroupType('')
+  }
+
   return (
-    <Modal animationType="slide" transparent={true} visible={props.isVisible}>
-      <SafeAreaView style={styles.screen}>
+    <KeyboardAvoidingView style={styles.screen}>
+      <Modal animationType="slide" transparent={true} visible={props.isVisible}>
         <View style={styles.mainView}>
           <View style={styles.rowView}>
-            <TouchableOpacity onPress={props.onPress}>
-              <Icon name="close" color="black" size={28} />
-            </TouchableOpacity>
-            <Text style={styles.headerText}>Create a group</Text>
-            <TouchableOpacity>
+            <View style={styles.innerRowView}>
+              <TouchableOpacity onPress={props.onPress}>
+                <Icon name="close" color="black" size={28} />
+              </TouchableOpacity>
+              <Text style={styles.headerText}>Create a group</Text>
+            </View>
+            <TouchableOpacity onPress={() => handleGroupData()}>
               <Text style={styles.saveText}>Save</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.groupRowView}>
+            <View style={styles.cameraView}>
+              <Icon name="camera-outline" color="#7f8188" size={28} />
+            </View>
+            <View style={styles.innerGroupView}>
+              <Text style={styles.title}>Group name</Text>
+              <TextInput
+                value={groupName}
+                onChangeText={(text) => setGroupName(text)}
+                underlineColor="#13a67f"
+                activeUnderlineColor='#13a67f'
+                style={{
+                  backgroundColor: '#fff',
+                  height: hp(5),
+                }}
+              />
+            </View>
+          </View>
+          <Spacer height={hp(2)} />
+          <View>
+            <Text style={styles.title}>Type</Text>
+            <Spacer height={hp(1)} />
+            <FlatList
+              data={typeList}
+              renderItem={(item) => renderGroupType(item)}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+          <Spacer height={hp(2)} />
+          <View>
+            <Text style={styles.title}>Group members</Text>
+            <View style={styles.groupRowView}>
+              <View>
+                <Icon name="person-add-outline" color="#7f8188" size={25} />
+              </View>
+              <View style={styles.innerGroupView}>
+                <Text style={styles.typeTitle}>You will be able to add grop members after you save this new group.</Text>
+              </View>
+            </View>
+          </View>
         </View>
-      </SafeAreaView>
-    </Modal>
+      </Modal>
+    </KeyboardAvoidingView>
   );
 };
 

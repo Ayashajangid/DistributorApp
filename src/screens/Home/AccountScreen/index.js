@@ -4,10 +4,23 @@ import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingV
 import {styles} from './style';
 import {useSelector} from 'react-redux';
 import Spacer from '../../../components/Spacer';
-import {hp} from '../../../utility/responsive/responsive';
+import {hp, wp} from '../../../utility/responsive/responsive';
+import AdaptiveButton from '../../../components/AdaptiveButton';
+import {logout} from '../../../firebaseAuth/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {changeRoute} from '../../../store/action/actions';
+import {useDispatch} from 'react-redux';
+
 
 const AccountScreen = () => {
   const res = useSelector(state => state.google.data);
+  const dispatch = useDispatch();
+
+  const logoutHandler = async () => {
+    const res = logout();
+    await AsyncStorage.removeItem('userLogin');
+    dispatch(changeRoute(1));
+  };
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView style={styles.mainContainer}>
@@ -21,6 +34,11 @@ const AccountScreen = () => {
           <Spacer height={hp(1)} />
           <Text style={styles.userEmail}>{res.user.email}</Text>
         </View>
+        <AdaptiveButton
+          onPress={logoutHandler}
+          title="Logout"
+          style={{width: wp(60), alignSelf: 'center'}}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

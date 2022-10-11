@@ -4,7 +4,9 @@ import React from 'react';
 export const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: '#70AF85',
+    // backgroundColor: '#70AF85',
+    borderColor: '#17a57f',
+    borderWidth: 1,
     width: '100%',
     borderRadius: 10,
     height: 48,
@@ -15,7 +17,7 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#17a57f',
     textAlign: 'center',
   },
 });
