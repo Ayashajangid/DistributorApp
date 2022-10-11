@@ -11,5 +11,9 @@ export default {
   authButton: {
     login: 'Login',
     signUp: 'SignUp',
+    google: 'SignUp with Google',
+  },
+  screen: {
+    addContact: 'Add a new contact',
   },
 };

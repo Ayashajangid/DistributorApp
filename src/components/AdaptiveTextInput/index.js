@@ -9,9 +9,11 @@ const AdaptiveTextInput = props => {
   return (
     <TextInput
       value={props.value}
+      autoFocus={props.autoFocus}
       keyboardType={props.keyboardType ?? 'default'}
       style={style}
       placeholder={props.placeholder}
+      secureTextEntry={props.secureTextEntry}
       // placeholderTextColor={props.placeholderTextColor ?? Colors.placeholder}
       onChangeText={props.onChangeText}
     />

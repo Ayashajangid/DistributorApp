@@ -28,6 +28,7 @@ const LoginScreen = () => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('userLogin', jsonValue);
+      dispatch(changeRoute(2));
     } catch (e) {
       console.log(e);
     }
@@ -35,7 +36,6 @@ const LoginScreen = () => {
 
   const onPressHandler = () => {
     storeData();
-    dispatch(changeRoute(2));
   };
 
   const disableHandler = () => {
@@ -68,6 +68,7 @@ const LoginScreen = () => {
           <AdaptiveTextInput
             placeholder={AppLocalizedStrings.login.password}
             value={password}
+            secureTextEntry={true}
             onChangeText={passwordHandler}
             style={{textAlign: 'left'}}
           />
