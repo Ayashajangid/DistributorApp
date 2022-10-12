@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   screen: {
     padding: 10,
     backgroundColor: 'rgba(75,160,130,1)',
-    borderColor: '#17a57f',
+    borderColor: 'rgba(75,160,130,1)',
     borderWidth: 1,
     width: '100%',
     borderRadius: 10,

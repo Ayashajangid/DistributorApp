@@ -16,7 +16,9 @@ const AdaptiveIconButton = props => {
       onPress={props.onPress}>
       <Icon name={props.icon} color={props.iconColor} size={props.iconSize} />
       <Spacer width={wp(4)} />
-      <Text style={styles.buttonText}>{props.title}</Text>
+      <Text style={[styles.buttonText, props.buttonTextColor]}>
+        {props.title}
+      </Text>
     </TouchableOpacity>
   );
 };

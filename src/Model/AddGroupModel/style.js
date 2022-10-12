@@ -3,17 +3,15 @@ import React from 'react';
 import {hp, wp} from '../../utility/responsive/responsive';
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: 'rgba(200,200,200,0.9)',
-  },
   mainView: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    paddingHorizontal: wp(5),
     // backgroundColor: 'rgba(200,200,200,0.9)',
-    backgroundColor: '#fff'
+  },
+  screen: {
+    flex: 1,
+    marginHorizontal: wp(5),
+    // backgroundColor: 'rgba(200,200,200,0.9)',
+    backgroundColor: '#fff',
   },
   rowView: {
     flexDirection: 'row',
@@ -69,30 +67,31 @@ export const styles = StyleSheet.create({
   groupRowView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: hp(3)
+    marginVertical: hp(3),
   },
   innerGroupView: {
-    width: wp(70),
-    marginHorizontal: wp(4)
+    // width: wp(70),
+    flex: 1,
+    marginHorizontal: wp(4),
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   typeSection: {
     padding: 12,
-    margin: 10,
+    // margin: 10,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 50,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   typeTitle: {
     fontSize: 16,
-    marginLeft: 5
+    marginLeft: 5,
   },
   selectedTypeSection: {
     backgroundColor: '#ccf1e9',
-    borderColor: '#599f8b'
-  }
+    borderColor: '#599f8b',
+  },
 });

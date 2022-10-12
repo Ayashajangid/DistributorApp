@@ -10,7 +10,7 @@ const ContactView = ({item, onPress}) => {
       <Image
         style={styles.imageStyle}
         source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrOU8JiOKwUBoiyb4sq_p_QO0zrtIYEgdGdA&usqp=CAU',
+          uri: item.image,
         }}
       />
       <Spacer width={wp(5)} />

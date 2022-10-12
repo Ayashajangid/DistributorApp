@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     paddingTop: hp(2),
   },
   buttonStyle: {
+    backgroundColor: '#ffff',
     width: wp(60),
     alignSelf: 'center',
   },

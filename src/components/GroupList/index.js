@@ -1,24 +1,24 @@
-import { View, Text, FlatList, Image } from 'react-native';
+import {View, Text, FlatList, Image} from 'react-native';
 import React from 'react';
-import { styles } from './style';
-import { useSelector } from 'react-redux';
+import {styles} from './style';
+import {useSelector} from 'react-redux';
 import Spacer from '../Spacer';
-import { hp, wp } from '../../utility/responsive/responsive';
+import {hp, wp} from '../../utility/responsive/responsive';
 
 const GroupList = () => {
   const groupData = useSelector(state => state.group.group);
 
-  const renderData = (item) => {
+  const renderData = item => {
     return (
       <View style={styles.groupOuterSection}>
-        <View style={{ width: wp(30) }}>
+        <View style={{width: wp(30)}}>
           <Image
-            style={{ width: 100, height: 90, borderRadius: 15 }}
+            style={{width: 100, height: 90, borderRadius: 15}}
             source={require('../../images/white-plane.png')}
-            resizeMode='contain'
+            resizeMode="contain"
           />
         </View>
-        <View >
+        <View>
           <Text style={styles.groupName}>{item.groupName}</Text>
           <Spacer height={hp(1)} />
           <Text style={styles.groupType}>{item.groupType}</Text>
@@ -31,8 +31,9 @@ const GroupList = () => {
       <Spacer height={hp(3)} />
       {groupData.length > 0 ? (
         <View>
-          <FlatList data={groupData}
-            renderItem={({ item }) => renderData(item)}
+          <FlatList
+            data={groupData}
+            renderItem={({item}) => renderData(item)}
           />
           <Spacer height={hp(3)} />
         </View>
@@ -40,9 +41,9 @@ const GroupList = () => {
         <View>
           <Image
             source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoWQPV6xzAZwNUIg3kCtw7PcTl1wTEmqYMgA&usqp=CAU',
+              uri: 'https://img.freepik.com/free-vector/college-university-students-group-young-happy-people-standing-isolated-white-background_575670-66.jpg?size=626&ext=jpg&ga=GA1.2.1599401084.1665473402',
             }}
-            style={{ width: 300, height: 300 }}
+            style={{width: 250, height: 250, alignSelf: 'center'}}
           />
           <Text style={styles.subHeading}>No friends to show.</Text>
           <Spacer height={hp(3)} />

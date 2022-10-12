@@ -22,10 +22,16 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     paddingHorizontal: 0,
     borderRadius: 0,
+    padding: 0,
   },
   title: {
     fontSize: 15,
     fontWeight: '600',
+    color: '#000',
+  },
+  summaryBottom: {
+    textAlign: 'center',
+    fontSize: 14,
     color: '#000',
   },
 });

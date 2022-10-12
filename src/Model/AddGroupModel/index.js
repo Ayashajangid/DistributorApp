@@ -1,64 +1,68 @@
-import { View, Text, TouchableOpacity, Modal, SafeAreaView, FlatList } from 'react-native';
-import React, { useState } from 'react';
-import { styles } from './style';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
+import React, {useState} from 'react';
+import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TextInput } from 'react-native-paper';
-import { hp } from '../../utility/responsive/responsive';
+import {TextInput} from 'react-native-paper';
+import {hp, wp} from '../../utility/responsive/responsive';
 import Spacer from '../../components/Spacer';
-import { addGroup } from '../../store/action/actions';
-import { useDispatch } from 'react-redux';
+import {addGroup} from '../../store/action/actions';
+import {useDispatch} from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
-import { planImage } from '../../images/white-plane.png'
+import typeList from '../../mock/typeList.json';
 
-const AddGroupModel = (props) => {
-  const [groupName, setGroupName] = useState('')
-  const [groupType, setGroupType] = useState('')
+const AddGroupModel = props => {
+  const [data, setData] = useState(typeList);
+  const [groupName, setGroupName] = useState('');
+  const [groupType, setGroupType] = useState('');
   const dispatch = useDispatch();
-  const typeList = [
-    {
-      title: 'Trip',
-      icon: 'airplane-outline'
-    },
-    {
-      title: 'Home',
-      icon: 'home-outline'
-    },
-    {
-      title: 'Couple',
-      icon: 'heart-outline'
-    },
-    {
-      title: 'Other',
-      icon: 'ios-file-tray-full-outline'
-    }
-  ]
 
-  const renderGroupType = ({ item }) => {
+  const renderGroupType = ({item}) => {
     return (
-      <TouchableOpacity style={[styles.typeSection, groupType === item.title && styles.selectedTypeSection]} onPress={() => setGroupType(item.title)}>
-        <Icon name={item.icon} color={groupType === item.title ? '#599f8b' : '#7f8188'} size={20} />
-        <Text style={[styles.typeTitle, { color: groupType === item.title ? '#599f8b' : '#7f8188' }]}>{item.title}</Text>
+      <TouchableOpacity
+        style={[
+          styles.typeSection,
+          groupType === item.title && styles.selectedTypeSection,
+        ]}
+        onPress={() => setGroupType(item.title)}>
+        <Icon
+          name={item.icon}
+          color={groupType === item.title ? '#599f8b' : '#7f8188'}
+          size={20}
+        />
+        <Text
+          style={[
+            styles.typeTitle,
+            {color: groupType === item.title ? '#599f8b' : '#7f8188'},
+          ]}>
+          {item.title}
+        </Text>
       </TouchableOpacity>
-    )
-  }
-
+    );
+  };
 
   const handleGroupData = () => {
     let groupData = {
       groupName: groupName,
       groupType: groupType,
-      groupLogo: ''
-    }
-    dispatch(addGroup(groupData))
-    props.onPress()
-    setGroupName('')
-    setGroupType('')
-  }
+      groupLogo: '',
+    };
+    dispatch(addGroup(groupData));
+    props.onPress();
+    setGroupName('');
+    setGroupType('');
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.screen}>
-      <Modal animationType="slide" transparent={true} visible={props.isVisible}>
-        <View style={styles.mainView}>
+    <Modal animationType="slide" transparent={true} visible={props.isVisible}>
+      <SafeAreaView style={styles.mainView}>
+        <KeyboardAvoidingView style={styles.screen}>
           <View style={styles.rowView}>
             <View style={styles.innerRowView}>
               <TouchableOpacity onPress={props.onPress}>
@@ -78,9 +82,9 @@ const AddGroupModel = (props) => {
               <Text style={styles.title}>Group name</Text>
               <TextInput
                 value={groupName}
-                onChangeText={(text) => setGroupName(text)}
+                onChangeText={text => setGroupName(text)}
                 underlineColor="#13a67f"
-                activeUnderlineColor='#13a67f'
+                activeUnderlineColor="#13a67f"
                 style={{
                   backgroundColor: '#fff',
                   height: hp(5),
@@ -93,9 +97,10 @@ const AddGroupModel = (props) => {
             <Text style={styles.title}>Type</Text>
             <Spacer height={hp(1)} />
             <FlatList
-              data={typeList}
-              renderItem={(item) => renderGroupType(item)}
+              data={data}
+              renderItem={item => renderGroupType(item)}
               horizontal
+              ItemSeparatorComponent={() => <Spacer width={wp(4)} />}
               showsHorizontalScrollIndicator={false}
             />
           </View>
@@ -107,13 +112,16 @@ const AddGroupModel = (props) => {
                 <Icon name="person-add-outline" color="#7f8188" size={25} />
               </View>
               <View style={styles.innerGroupView}>
-                <Text style={styles.typeTitle}>You will be able to add grop members after you save this new group.</Text>
+                <Text style={styles.typeTitle}>
+                  You will be able to add grop members after you save this new
+                  group.
+                </Text>
               </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </Modal>
   );
 };
 

@@ -14,11 +14,11 @@ const FriendsScreen = ({navigation}) => {
   const buttonHandler = () => {
     navigation.navigate(AppLocalizedStrings.screen.addContact);
   };
-  const onPressHandler = () => {
-    navigation.navigate(AppLocalizedStrings.screen.contactDetail);
+  const onPressHandler = item => {
+    navigation.navigate(AppLocalizedStrings.screen.contactDetail, {item});
   };
   const renderItem = ({item}) => {
-    return <ContactView item={item} onPress={onPressHandler} />;
+    return <ContactView item={item} onPress={() => onPressHandler(item)} />;
   };
   return (
     <SafeAreaView style={styles.screen}>
@@ -46,8 +46,9 @@ const FriendsScreen = ({navigation}) => {
         <AdaptiveIconButton
           title="Add more friends"
           icon="person-add"
-          iconColor="white"
+          iconColor="rgba(75,160,130,1)"
           iconSize={20}
+          // buttonTextColor={{color: '#ffff'}}
           style={styles.buttonStyle}
           onPress={buttonHandler}
         />

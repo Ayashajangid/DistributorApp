@@ -8,14 +8,15 @@ import AdaptiveTextInput from '../../../components/AdaptiveTextInput';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import {useDispatch} from 'react-redux';
 import {addContact} from '../../../store/action/actions';
-// https://img.freepik.com/free-vector/group-young-people-posing-photo_52683-18823.jpg?size=338&ext=jpg&ga=GA1.2.1599401084.1665473402
 
 const AddContact = ({navigation}) => {
+  const image =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrOU8JiOKwUBoiyb4sq_p_QO0zrtIYEgdGdA&usqp=CAU';
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [numEmail, setNumEmail] = useState('');
   const addNewContact = () => {
-    const value = {name, numEmail};
+    const value = {name, numEmail, image};
     dispatch(addContact(value));
     navigation.goBack();
   };
@@ -40,8 +41,8 @@ const AddContact = ({navigation}) => {
             onChangeText={t => setNumEmail(t)}
           />
         </>
-        <Spacer height={hp(3)} />
-        <Text>
+        <Spacer height={hp(4)} />
+        <Text style={styles.summaryBottom}>
           Don't worry, nothing sends just yet. You will have another chance to
           review before sending.
         </Text>

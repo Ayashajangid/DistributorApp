@@ -24,24 +24,24 @@ export const styles = StyleSheet.create({
   },
   buttonStyle: {
     width: wp(60),
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   addExpenseSection: {
     position: 'absolute',
     bottom: 20,
-    right: 20
+    right: 20,
   },
-  addExpenseBtn:{
+  addExpenseBtn: {
     backgroundColor: '#17a57f',
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 50,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   expenseTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-    marginLeft: 10
-  }
+    marginLeft: 10,
+  },
 });
