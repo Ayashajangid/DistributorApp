@@ -1,29 +1,27 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {styles} from './style';
+import { styles } from './style';
 import GroupList from '../../../components/GroupList';
 import { useDispatch } from 'react-redux';
 import { changeRoute, addGroup } from '../../../store/action/actions';
-import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
-import AdaptiveIconButton from '../../../components/AdaptiveIconButton';
-import AdaptiveButton from '../../../components/AdaptiveButton';
-import {hp, wp} from '../../../utility/responsive/responsive';
-import Spacer from '../../../components/Spacer';
-import AddGroupModel from '../../../Model/AddGroupModel';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {logout} from '../../../firebaseAuth/auth';
+import { logout } from '../../../firebaseAuth/auth';
 
-const GroupScreen = ({navigation}) => {
+const GroupScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
   const [groupData, setGroupData] = useState([])
 
-  useEffect(async() => {
+  useEffect(() => {
+    getRenderData()
+  }, [isVisible])
+
+  const getRenderData = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
     setGroupData(JSON.parse(jsonValue))
     dispatch(addGroup(JSON.parse(jsonValue)))
-  }, [navigation])
+  }
 
   const newGroupHandler = () => {
     setIsVisible(true);
@@ -37,16 +35,14 @@ const GroupScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={{flex: 1}}>
-        <KeyboardAvoidingView style={styles.mainContainer}>
+      <View style={{ flex: 1 }}>
+        <View style={styles.mainContainer}>
           <View style={styles.headerView}>
             <Text style={styles.groupTitle}>You are all settled up!</Text>
-            {/* <Icon name="sliders-h" color="#000" size={22} /> */}
+            <Icon name="sliders-h" color="#000" size={22} />
           </View>
-          <View>
-            <GroupList groupData={groupData} />
-          </View>
-          <AdaptiveIconButton
+          <GroupList navigation={navigation} groupData={groupData} newGroupHandler={newGroupHandler} setIsVisible={setIsVisible} isVisible={isVisible}/>
+          {/* <AdaptiveIconButton
             title="Start a new group"
             icon="person-add"
             iconColor="#17a57f"
@@ -58,8 +54,8 @@ const GroupScreen = ({navigation}) => {
           <AddGroupModel
             isVisible={isVisible}
             onPress={() => setIsVisible(false)}
-          />
-        </KeyboardAvoidingView>
+          /> */}
+        </View>
       </View>
       <View style={styles.addExpenseSection}>
         <TouchableOpacity

@@ -4,7 +4,6 @@ import {Picker} from '@react-native-picker/picker';
 import { useSelector } from 'react-redux';
 
 const SelectBox = (props) => {
-    // const [selectedValue, setSelectedValue] = useState("select");
     const groupData = useSelector(state => state.group.group);
     return (
         <Picker

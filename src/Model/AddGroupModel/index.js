@@ -10,11 +10,12 @@ import React, {useState} from 'react';
 import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from 'react-native-paper';
-import { hp } from '../../utility/responsive/responsive';
+import { hp, wp } from '../../utility/responsive/responsive';
 import Spacer from '../../components/Spacer';
 import { useDispatch } from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import typeList from '../../mock/typeList.json'
 
 const AddGroupModel = props => {
   const [data, setData] = useState(typeList);
@@ -51,7 +52,8 @@ const AddGroupModel = props => {
     let groupData = {
       groupName: groupName,
       groupType: groupType,
-      groupLogo: ''
+      groupLogo: '',
+      payments: []
     }
     let jsonValue = await AsyncStorage.getItem('groupData');
     jsonValue = JSON.parse(jsonValue)
