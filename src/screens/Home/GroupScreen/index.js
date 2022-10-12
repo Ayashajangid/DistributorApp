@@ -1,10 +1,10 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './style';
 import GroupList from '../../../components/GroupList';
 import { useDispatch } from 'react-redux';
-import { changeRoute } from '../../../store/action/actions';
+import { changeRoute, addGroup } from '../../../store/action/actions';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveIconButton from '../../../components/AdaptiveIconButton';
 import AdaptiveButton from '../../../components/AdaptiveButton';
@@ -17,6 +17,13 @@ import { logout } from '../../../firebaseAuth/auth';
 const GroupScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
+  const [groupData, setGroupData] = useState([])
+
+  useEffect(async() => {
+    const jsonValue = await AsyncStorage.getItem('groupData');
+    setGroupData(JSON.parse(jsonValue))
+    dispatch(addGroup(JSON.parse(jsonValue)))
+  }, [navigation])
 
   const newGroupHandler = () => {
     setIsVisible(true);
@@ -37,7 +44,7 @@ const GroupScreen = ({ navigation }) => {
             {/* <Icon name="sliders-h" color="#000" size={22} /> */}
           </View>
           <View>
-            <GroupList />
+            <GroupList groupData={groupData} />
           </View>
           <AdaptiveIconButton
             title="Start a new group"

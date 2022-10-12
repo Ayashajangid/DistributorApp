@@ -5,10 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from 'react-native-paper';
 import { hp } from '../../utility/responsive/responsive';
 import Spacer from '../../components/Spacer';
-import { addGroup } from '../../store/action/actions';
 import { useDispatch } from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
-import { planImage } from '../../images/white-plane.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddGroupModel = (props) => {
   const [groupName, setGroupName] = useState('')
@@ -43,13 +42,22 @@ const AddGroupModel = (props) => {
   }
 
 
-  const handleGroupData = () => {
+  const handleGroupData = async() => {
+    let allGroupData = []
     let groupData = {
       groupName: groupName,
       groupType: groupType,
       groupLogo: ''
     }
-    dispatch(addGroup(groupData))
+    let jsonValue = await AsyncStorage.getItem('groupData');
+    jsonValue = JSON.parse(jsonValue)
+    if(jsonValue != null){
+      allGroupData = [...jsonValue, groupData]
+    } else {
+      allGroupData = [groupData]
+    }
+    await AsyncStorage.setItem('groupData', JSON.stringify(allGroupData));
+    // await AsyncStorage.removeItem('groupData')
     props.onPress()
     setGroupName('')
     setGroupType('')

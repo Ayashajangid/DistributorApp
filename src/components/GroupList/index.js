@@ -1,13 +1,10 @@
 import { View, Text, FlatList, Image } from 'react-native';
 import React from 'react';
 import { styles } from './style';
-import { useSelector } from 'react-redux';
 import Spacer from '../Spacer';
 import { hp, wp } from '../../utility/responsive/responsive';
 
-const GroupList = () => {
-  const groupData = useSelector(state => state.group.group);
-
+const GroupList = (props) => {
   const renderData = (item) => {
     return (
       <View style={styles.groupOuterSection}>
@@ -29,10 +26,11 @@ const GroupList = () => {
   return (
     <View style={styles.container}>
       <Spacer height={hp(3)} />
-      {groupData.length > 0 ? (
+      {props.groupData?.length > 0 ? (
         <View>
-          <FlatList data={groupData}
+          <FlatList data={props.groupData}
             renderItem={({ item }) => renderData(item)}
+            keyExtractor={(item, index) => index.toString()}
           />
           <Spacer height={hp(3)} />
         </View>

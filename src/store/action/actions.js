@@ -2,6 +2,7 @@ export const CHANGE_ROUTE = 'CHANGE_ROUTE';
 export const ADD_GROUP = 'ADD_GROUP';
 export const GOOGLE_DATA = 'GOOGLE_DATA';
 export const ADD_CONTACT = 'ADD_CONTACT';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export function changeRoute(num) {
   return {
@@ -26,4 +27,10 @@ export function addContact(data) {
     type: ADD_CONTACT,
     payload: data,
   };
+}
+export function addExpense(data) {
+  return{
+    type: ADD_EXPENSE,
+    payload: data
+  }
 }
