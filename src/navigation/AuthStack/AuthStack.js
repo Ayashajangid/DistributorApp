@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginType from '../../screens/Auth/LoginType';
 import LoginScreen from '../../screens/Auth/LoginScreen';
 import SignUpScreen from '../../screens/Auth/SignUpScreen';
+import {AppLocalizedStrings} from '../../localization/Localization';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,14 +14,14 @@ const AuthStack = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="LoginType"
+          name={AppLocalizedStrings.screen.loginType}
           component={LoginType}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="LoginScreen"
+          name={AppLocalizedStrings.screen.login}
           component={LoginScreen}
           options={{
             headerTitleAlign: 'center',
@@ -28,7 +29,7 @@ const AuthStack = () => {
           }}
         />
         <Stack.Screen
-          name="SignUpScreen"
+          name={AppLocalizedStrings.screen.signup}
           component={SignUpScreen}
           options={{
             headerTitleAlign: 'center',

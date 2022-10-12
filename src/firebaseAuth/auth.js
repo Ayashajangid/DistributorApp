@@ -8,7 +8,6 @@ export const googleLogin = async () => {
     const {idToken} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const data = await auth().signInWithCredential(googleCredential);
-    // console.log('data', data);
     return data;
   } catch (error) {
     throw error;

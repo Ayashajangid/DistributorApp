@@ -13,7 +13,7 @@ const SignUpScreen = () => {
       <KeyboardAvoidingView style={styles.container}>
         <Image
           source={{
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEsH_QjGoSXRxS0Kvh-zaUwTr1QH5_e7WWFQ&usqp=CAU',
+            uri: 'https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7865.jpg?size=338&ext=jpg&ga=GA1.2.1599401084.1665473402',
           }}
           style={{width: 250, height: 250}}
         />
@@ -34,7 +34,10 @@ const SignUpScreen = () => {
           secureTextEntry={true}
         />
         <Spacer height={20} />
-        <AdaptiveButton title={AppLocalizedStrings.authButton.signUp} />
+        <AdaptiveButton
+          title={AppLocalizedStrings.authButton.signUp}
+          style={{backgroundColor: 'rgba(248,118,97,1)'}}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

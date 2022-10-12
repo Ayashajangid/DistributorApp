@@ -28,6 +28,7 @@ const TabStack = () => {
         component={GroupScreen}
         options={{
           // headerShown: false,
+          tabBarActiveTintColor: 'rgba(75,160,130,1)',
           headerTitleAlign: 'center',
           title: 'Groups',
           tabBarIcon: ({focused, color}) => (
@@ -40,6 +41,7 @@ const TabStack = () => {
         component={FriendsScreen}
         options={{
           // headerShown: false,
+          tabBarActiveTintColor: 'rgba(75,160,130,1)',
           headerTitleAlign: 'center',
           title: 'Friends',
           tabBarIcon: ({focused, color}) => (
@@ -52,6 +54,7 @@ const TabStack = () => {
         component={ActivityScreen}
         options={{
           // headerShown: false,
+          tabBarActiveTintColor: 'rgba(75,160,130,1)',
           headerTitleAlign: 'center',
           tabBarLabel: 'Activity',
           tabBarIcon: ({focused, color}) => (
@@ -69,6 +72,7 @@ const TabStack = () => {
         component={AccountScreen}
         options={{
           // headerShown: false,
+          tabBarActiveTintColor: 'rgba(75,160,130,1)',
           headerTitleAlign: 'center',
           tabBarLabel: 'Account',
           tabBarIcon: ({focused, color}) => (

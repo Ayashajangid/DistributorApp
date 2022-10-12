@@ -1,12 +1,12 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {styles} from './style';
 import Spacer from '../../../Spacer';
 import {wp} from '../../../../utility/responsive/responsive';
 
-const ContactView = item => {
+const ContactView = ({item, onPress}) => {
   return (
-    <View style={styles.mainView}>
+    <TouchableOpacity style={styles.mainView} onPress={onPress}>
       <Image
         style={styles.imageStyle}
         source={{
@@ -16,11 +16,11 @@ const ContactView = item => {
       <Spacer width={wp(5)} />
       <View style={styles.nameView}>
         <Text numberOfLines={1} style={styles.nameText}>
-          {item.item.name}
+          {item.name}
         </Text>
       </View>
       <Text style={styles.expensesText}>no expenses</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -48,39 +48,40 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <TouchableWithoutFeedback>
-        <KeyboardAvoidingView style={styles.container}>
-          <Spacer height={hp(4)} />
-          <Image
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEsH_QjGoSXRxS0Kvh-zaUwTr1QH5_e7WWFQ&usqp=CAU',
-            }}
-            style={{width: 250, height: 250}}
-          />
-          <Spacer height={hp(8)} />
-          <AdaptiveTextInput
-            placeholder={AppLocalizedStrings.login.emailAndNumber}
-            value={nameEmail}
-            onChangeText={nameEmailHandler}
-            style={{textAlign: 'left'}}
-          />
-          <Spacer height={hp(3)} />
-          <AdaptiveTextInput
-            placeholder={AppLocalizedStrings.login.password}
-            value={password}
-            secureTextEntry={true}
-            onChangeText={passwordHandler}
-            style={{textAlign: 'left'}}
-          />
-          <Spacer height={hp(3)} />
-          <AdaptiveButton
-            title={AppLocalizedStrings.authButton.login}
-            disable={disableHandler()}
-            style={{opacity: disableHandler() ? 0.5 : 1}}
-            onPress={onPressHandler}
-          />
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+      <KeyboardAvoidingView style={styles.container}>
+        <Spacer height={hp(4)} />
+        <Image
+          source={{
+            uri: 'https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?size=338&ext=jpg&ga=GA1.2.1599401084.1665473402',
+          }}
+          style={{width: 250, height: 250}}
+        />
+        <Spacer height={hp(8)} />
+        <AdaptiveTextInput
+          placeholder={AppLocalizedStrings.login.emailAndNumber}
+          value={nameEmail}
+          onChangeText={nameEmailHandler}
+          style={styles.inputStyle}
+        />
+        <Spacer height={hp(3)} />
+        <AdaptiveTextInput
+          placeholder={AppLocalizedStrings.login.password}
+          value={password}
+          secureTextEntry={true}
+          onChangeText={passwordHandler}
+          style={styles.inputStyle}
+        />
+        <Spacer height={hp(3)} />
+        <AdaptiveButton
+          title={AppLocalizedStrings.authButton.login}
+          disable={disableHandler()}
+          style={{
+            opacity: disableHandler() ? 0.5 : 1,
+            backgroundColor: 'rgba(248,118,97,1)',
+          }}
+          onPress={onPressHandler}
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
