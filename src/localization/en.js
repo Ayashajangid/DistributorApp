@@ -14,6 +14,10 @@ export default {
     google: 'SignUp with Google',
   },
   screen: {
+    loginType: 'LoginTypeScreen',
+    login: 'LoginScreen',
+    signup: 'SignUpScreen',
     addContact: 'Add a new contact',
+    contactDetail: 'ContactDetailScreen',
   },
 };

@@ -4,7 +4,7 @@ import React from 'react';
 export const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: '#70AF85',
+    backgroundColor: 'rgba(75,160,130,1)',
     width: '100%',
     borderRadius: 10,
     height: 48,

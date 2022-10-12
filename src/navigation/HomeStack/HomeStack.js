@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabStack from '../TabStack/TabStack';
 import {AppLocalizedStrings} from '../../localization/Localization';
 import AddContact from '../../screens/Home/AddContact';
+import ContactDetailScreen from '../../screens/Home/ContactDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,11 @@ const HomeStack = () => {
         <Stack.Screen
           name={AppLocalizedStrings.screen.addContact}
           component={AddContact}
+          // options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={AppLocalizedStrings.screen.contactDetail}
+          component={ContactDetailScreen}
           // options={{headerShown: false}}
         />
       </Stack.Navigator>

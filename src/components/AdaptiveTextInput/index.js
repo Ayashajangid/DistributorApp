@@ -14,7 +14,7 @@ const AdaptiveTextInput = props => {
       style={style}
       placeholder={props.placeholder}
       secureTextEntry={props.secureTextEntry}
-      // placeholderTextColor={props.placeholderTextColor ?? Colors.placeholder}
+      placeholderTextColor={props.placeholderTextColor ?? '#ccc'}
       onChangeText={props.onChangeText}
     />
   );
