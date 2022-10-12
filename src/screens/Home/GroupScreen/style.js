@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
   buttonStyle: {
     width: wp(60),
     alignSelf: 'center',
+    backgroundColor: '#fff'
   },
   addExpenseSection: {
     position: 'absolute',

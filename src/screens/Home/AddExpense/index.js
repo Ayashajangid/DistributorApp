@@ -1,23 +1,30 @@
-import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './style';
+import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TextInput} from 'react-native-paper';
-import Spacer from '../../../components/Spacer';
-import {hp, wp} from '../../../utility/responsive/responsive';
+import { TextInput } from 'react-native-paper';
+import Spacer from '../../components/Spacer';
+import { hp, wp } from '../../utility/responsive/responsive';
+import SelectBox from '../../components/SelectBox';
+import {addExpense} from '../../store/action/actions';
+import { useDispatch } from 'react-redux';
 
-const AddExpense = ({navigation}) => {
-  const [desc, setDesc] = useState('');
-  const [price, setPrice] = useState('');
+const AddExpense = ({ navigation }) => {
+  const [desc, setDesc] = useState('')
+  const [price, setPrice] = useState('')
+  const [selectedValue, setSelectedValue] = useState("select");
+  const dispatch = useDispatch();
 
   const handleExpenseData = () => {
     let expenseData = {
       desc: desc,
       price: price,
-    };
-    navigation.goBack();
-  };
+      selectGroup: selectedValue
+    }
+    dispatch(addExpense(expenseData))
+    navigation.goBack()
+  }
   return (
     <SafeAreaView
       style={{paddingHorizontal: 10, backgroundColor: '#fff', flex: 1}}>
@@ -34,9 +41,10 @@ const AddExpense = ({navigation}) => {
       </View>
       <Spacer height={hp(3)} />
       <View>
-        <Text style={{fontSize: 15, color: '#000', marginLeft: 10}}>
-          With you and :{' '}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, color: '#000', marginLeft: 10 }}>With you and : </Text>
+          <SelectBox setSelectedValue={setSelectedValue} selectedValue={selectedValue} />
+        </View>
         <Spacer height={hp(1)} />
         <View
           style={{
@@ -86,7 +94,7 @@ const AddExpense = ({navigation}) => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default AddExpense;
+export default AddExpense
