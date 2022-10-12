@@ -6,7 +6,7 @@ import TabStack from '../TabStack/TabStack';
 import {AppLocalizedStrings} from '../../localization/Localization';
 import AddContact from '../../screens/Home/AddContact';
 import ContactDetailScreen from '../../screens/Home/ContactDetail';
-import AddExpense from '../../screens/addExpense';
+import AddExpense from '../../screens/AddExpense';
 
 const Stack = createNativeStackNavigator();
 
