@@ -12,13 +12,14 @@ const GroupList = props => {
       <TouchableOpacity
         onPress={() => props.navigation.navigate('ContactDetailScreen', {item})}
         style={styles.groupOuterSection}>
-        <View style={{width: wp(30)}}>
+        <View>
           <Image
-            style={{width: 90, height: 90, borderRadius: 10}}
+            style={{width: 80, height: 80, borderRadius: 10}}
             source={require('../../images/white-plane.png')}
             resizeMode="contain"
           />
         </View>
+        <Spacer width={wp(6)} />
         <View>
           <Text style={styles.groupName}>{item.groupName}</Text>
           <Spacer height={hp(1)} />

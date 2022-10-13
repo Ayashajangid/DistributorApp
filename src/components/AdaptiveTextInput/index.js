@@ -13,6 +13,7 @@ const AdaptiveTextInput = props => {
       keyboardType={props.keyboardType ?? 'default'}
       style={style}
       placeholder={props.placeholder}
+      activeUnderlineColor="red"
       secureTextEntry={props.secureTextEntry}
       placeholderTextColor={props.placeholderTextColor ?? '#ccc'}
       onChangeText={props.onChangeText}
