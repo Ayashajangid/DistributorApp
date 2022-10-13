@@ -82,8 +82,11 @@ const AddExpense = ({navigation, route}) => {
         {/* <Spacer height={hp(3)} /> */}
 
         <View style={styles.rowView}>
-          <Text style={styles.withText}>With you and : </Text>
-          <View
+          <Text style={styles.withText}>With you and :</Text>
+          {
+            route?.params?.item ? 
+            <Text style={styles.withText}>{selectedValue}</Text>
+            : <View
             style={
               Platform.OS == 'ios'
                 ? {postion: 'absolute', top: -22, left: 20}
@@ -93,7 +96,7 @@ const AddExpense = ({navigation, route}) => {
               setSelectedValue={setSelectedValue}
               selectedValue={selectedValue}
             />
-          </View>
+          </View>}
         </View>
         <Spacer height={hp(3)} />
         <View
@@ -135,6 +138,7 @@ const AddExpense = ({navigation, route}) => {
         </View>
         <Spacer height={hp(4)} />
         <AdaptiveButton
+        onPress={() => handleExpenseData()}
           title="Save"
           style={{width: wp(65), alignSelf: 'center'}}
         />
