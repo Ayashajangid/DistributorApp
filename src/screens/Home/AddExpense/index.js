@@ -1,4 +1,11 @@
-import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +17,9 @@ import SelectBox from '../../../components/SelectBox';
 import {addExpense} from '../../../store/action/actions';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
+import AdaptiveButton from '../../../components/AdaptiveButton';
+import AdaptiveTextInput from '../../../components/AdaptiveTextInput';
 import uuid from 'react-native-uuid';
 
 const AddExpense = ({navigation, route}) => {
@@ -55,79 +65,80 @@ const AddExpense = ({navigation, route}) => {
     navigation.goBack()
   };
   return (
-    <SafeAreaView
-      style={{paddingHorizontal: wp(5), backgroundColor: '#fff', flex: 1}}>
-      <Spacer height={hp(3)} />
-      <View style={styles.rowView}>
-        <View style={styles.innerRowView}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" color="black" size={28} />
+    <SafeAreaView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.mainView}>
+        {/* <Spacer height={hp(3)} /> */}
+        {/* <View style={styles.rowView}>
+          <View style={styles.innerRowView}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Icon name="arrow-back" color="black" size={28} />
+            </TouchableOpacity>
+            <Text style={styles.headerText}>Add expense</Text>
+          </View>
+          <TouchableOpacity onPress={() => handleExpenseData()}>
+            <Icon name="checkmark" color="black" size={28} />
           </TouchableOpacity>
-          <Text style={styles.headerText}>Add expense</Text>
+        </View> */}
+        {/* <Spacer height={hp(3)} /> */}
+
+        <View style={styles.rowView}>
+          <Text style={styles.withText}>With you and : </Text>
+          <View
+            style={
+              Platform.OS == 'ios'
+                ? {postion: 'absolute', top: -22, left: 20}
+                : null
+            }>
+            <SelectBox
+              setSelectedValue={setSelectedValue}
+              selectedValue={selectedValue}
+            />
+          </View>
         </View>
-        <TouchableOpacity onPress={() => handleExpenseData()}>
-          <Icon name="checkmark" color="black" size={28} />
-        </TouchableOpacity>
-      </View>
-      <Spacer height={hp(3)} />
-      <View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{fontSize: 15, color: '#000', marginLeft: 10}}>
-            With you and :{' '}
-          </Text>
-          <SelectBox
-            setSelectedValue={setSelectedValue}
-            selectedValue={selectedValue}
-          />
-        </View>
-        <Spacer height={hp(1)} />
+        <Spacer height={hp(3)} />
         <View
           style={{
-            marginHorizontal: wp(10),
-            width: wp(100),
+            alignSelf: 'center',
           }}>
           <View style={styles.detailSection}>
             <View style={styles.iconStyle}>
               <Icon name="file-tray-full-outline" color="black" size={28} />
             </View>
-            <View style={{backgroundColor: '#fff'}}>
+            <Spacer width={wp(4)} />
+            <View>
               <TextInput
                 value={desc}
                 onChangeText={text => setDesc(text)}
                 placeholder="Enter a description"
-                underlineColor="#13a67f"
                 activeUnderlineColor="#13a67f"
-                style={{
-                  backgroundColor: '#fff',
-                  height: hp(7),
-                  width: wp(50),
-                }}
+                style={styles.textInput}
               />
             </View>
           </View>
-          <Spacer height={hp(1)} />
+          <Spacer height={hp(2)} />
           <View style={styles.detailSection}>
             <View style={styles.iconStyle}>
               <IconFontAwesome name="inr" color="black" size={28} />
             </View>
-            <View style={{backgroundColor: '#fff'}}>
+            <Spacer width={wp(4)} />
+            <View style={{backgroundColor: '#fff', height: 50}}>
               <TextInput
                 value={price}
                 onChangeText={text => setPrice(text)}
                 placeholder="0.00"
                 keyboardType="numeric"
-                underlineColor="#13a67f"
                 activeUnderlineColor="#13a67f"
-                style={{
-                  backgroundColor: '#fff',
-                  height: hp(7),
-                  width: wp(50),
-                }}
+                style={styles.textInput}
               />
             </View>
           </View>
         </View>
-      </View>
+        <Spacer height={hp(4)} />
+        <AdaptiveButton
+          title="Save"
+          style={{width: wp(65), alignSelf: 'center'}}
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

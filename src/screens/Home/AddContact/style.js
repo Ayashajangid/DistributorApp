@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 0,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     height: 30,
     textAlign: 'left',
     paddingHorizontal: 0,

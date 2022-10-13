@@ -26,6 +26,7 @@ const AddContact = ({navigation}) => {
         <>
           <Text style={styles.title}>Name</Text>
           <AdaptiveTextInput
+            activeUnderlineColor="#13a67f"
             style={styles.textInput}
             autoFocus={true}
             value={name}
@@ -36,6 +37,7 @@ const AddContact = ({navigation}) => {
         <>
           <Text style={styles.title}>Phone number or email address</Text>
           <AdaptiveTextInput
+            activeUnderlineColor="#13a67f"
             style={styles.textInput}
             value={numEmail}
             onChangeText={t => setNumEmail(t)}

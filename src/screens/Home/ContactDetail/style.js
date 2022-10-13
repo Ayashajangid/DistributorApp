@@ -33,7 +33,14 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   textStyle: {
-    fontSize: 25
+    fontSize: 25,
+    color: '#000',
+    fontWeight: '600',
+  },
+  typeStyle: {
+    fontSize: 16,
+    color: '#000',
+    fontWeight: '400',
   },
   addExpenseSection: {
     position: 'absolute',
@@ -52,5 +59,10 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     marginLeft: 10,
+  },
+  imageStyle: {
+    flex: 1,
+    resizeMode: 'cover',
+    height: '100%',
   },
 });

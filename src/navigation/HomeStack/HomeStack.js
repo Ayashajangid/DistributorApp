@@ -22,7 +22,7 @@ const HomeStack = () => {
         <Stack.Screen
           name="AddExpense"
           component={AddExpense}
-          options={{headerShown: false}}
+          options={{headerShown: true}}
         />
         <Stack.Screen
           name={AppLocalizedStrings.screen.addContact}
