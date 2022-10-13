@@ -15,10 +15,11 @@ const GroupScreen = ({ navigation }) => {
 
   useEffect(() => {
     getRenderData()
-  }, [isVisible])
+  }, [navigation, isVisible])
 
   const getRenderData = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
+    console.log('JSON.parse(jsonValue): ', JSON.parse(jsonValue))
     setGroupData(JSON.parse(jsonValue))
     dispatch(addGroup(JSON.parse(jsonValue)))
   }

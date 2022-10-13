@@ -6,7 +6,7 @@ import { hp, wp } from '../../../utility/responsive/responsive';
 import Spacer from '../../../components/Spacer';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
 const ContactDetailScreen = ({ route, navigation }) => {
-  const { item } = route.params;
+  const { item } = route?.params;
   console.log({ item })
   return (
     <View style={{ flex: 1 }}>
@@ -43,9 +43,9 @@ const ContactDetailScreen = ({ route, navigation }) => {
             />
           </View>
           <View style={{ marginTop: hp(45 / 8), marginLeft: wp(11) }}>
-            <Text style={styles.textStyle}>{item.groupName ?? item.name}</Text>
+            <Text style={styles.textStyle}>{item?.groupName ?? item?.name}</Text>
             <Spacer height={hp(1)} />
-            <Text>{item.groupType ?? item.numEmail}</Text>
+            <Text>{item?.groupType ?? item?.numEmail}</Text>
           </View>
         </View>
       </View>

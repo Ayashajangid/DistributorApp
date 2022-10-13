@@ -10,6 +10,7 @@ import SelectBox from '../../../components/SelectBox';
 import {addExpense} from '../../../store/action/actions';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
 const AddExpense = ({navigation, route}) => {
   const [desc, setDesc] = useState('');
@@ -20,29 +21,38 @@ const AddExpense = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log({route})
     route?.params?.item && renderFunction();
   }, [navigation]);
-
+  
   const renderFunction = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
     let selectVal = JSON.parse(jsonValue).find(
-      item => JSON.stringify(item) === JSON.stringify(route.params.item),
+      item => item.id === route.params.item.id
     );
+    // console.log('selectVal?.groupName: ', selectVal?.groupName)
     setGroupData(JSON.parse(jsonValue));
-    setSelectedValue(selectVal.groupName);
+    setSelectedValue(route.params.item.groupName);
     setSelectedGroupData(selectVal);
   };
 
   const handleExpenseData = async () => {
     let expenseData = {
+      paymentId: uuid.v4(),
       desc: desc,
       price: price,
       selectGroup: selectedValue,
     };
-    let PaymentData = [...selectedGroupData.payments, expenseData];
-    console.log('groupData:: ', PaymentData);
+    groupData.map((item) => {
+      if(item.id === route.params.item.id){
+        item.payments.push(expenseData);
+      }
+    })
+    console.log({groupData})
+    await AsyncStorage.setItem('groupData', JSON.stringify(groupData));
     // dispatch(addExpense(expenseData))
-    // navigation.goBack()
+    setSelectedValue('select')
+    navigation.goBack()
   };
   return (
     <SafeAreaView

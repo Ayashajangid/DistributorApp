@@ -20,9 +20,9 @@ const GroupList = props => {
           />
         </View>
         <View>
-          <Text style={styles.groupName}>{item.groupName}</Text>
+          <Text style={styles.groupName}>{item?.groupName}</Text>
           <Spacer height={hp(1)} />
-          <Text style={styles.groupType}>{item.groupType}</Text>
+          <Text style={styles.groupType}>{item?.groupType}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -30,6 +30,7 @@ const GroupList = props => {
   return (
     <>
       <Spacer height={hp(3)} />
+      {console.log('props.groupData: ', props.groupData)}
       {props.groupData?.length > 0 ? (
         <FlatList
           data={props.groupData}

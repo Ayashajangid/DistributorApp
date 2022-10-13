@@ -15,7 +15,8 @@ import Spacer from '../../components/Spacer';
 import { useDispatch } from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import typeList from '../../mock/typeList.json'
+import typeList from '../../mock/typeList.json';
+import uuid from 'react-native-uuid';
 
 const AddGroupModel = props => {
   const [data, setData] = useState(typeList);
@@ -48,8 +49,10 @@ const AddGroupModel = props => {
   };
 
   const handleGroupData = async() => {
+    let uniqueId = uuid.v4();
     let allGroupData = []
     let groupData = {
+      id: uniqueId,
       groupName: groupName,
       groupType: groupType,
       groupLogo: '',

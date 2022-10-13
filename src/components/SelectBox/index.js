@@ -14,9 +14,9 @@ const SelectBox = (props) => {
         >
           <Picker.Item label='Select' value='select' />
           {
-            groupData?.map(item => {
+            groupData?.map((item, key) => {
               return (
-              <Picker.Item label={item.groupName} value={item.groupName} />
+              <Picker.Item key={key} label={item.groupName} value={item.groupName} />
               )
             })
           }
