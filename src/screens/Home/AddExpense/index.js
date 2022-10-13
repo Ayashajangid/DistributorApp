@@ -1,50 +1,53 @@
-import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { styles } from './style';
+import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import Spacer from '../../../components/Spacer';
-import { hp, wp } from '../../../utility/responsive/responsive';
+import {hp, wp} from '../../../utility/responsive/responsive';
 import SelectBox from '../../../components/SelectBox';
 import {addExpense} from '../../../store/action/actions';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddExpense = ({ navigation, route }) => {
-  const [desc, setDesc] = useState('')
-  const [price, setPrice] = useState('')
-  const [selectedValue, setSelectedValue] = useState("select");
-  const [selectedGroupData, setSelectedGroupData] = useState({})
-  const [groupData, setGroupData] = useState([])
+const AddExpense = ({navigation, route}) => {
+  const [desc, setDesc] = useState('');
+  const [price, setPrice] = useState('');
+  const [selectedValue, setSelectedValue] = useState('select');
+  const [selectedGroupData, setSelectedGroupData] = useState({});
+  const [groupData, setGroupData] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    route?.params?.item && renderFunction()
-  },[navigation])
+    route?.params?.item && renderFunction();
+  }, [navigation]);
 
-  const renderFunction = async() => {
+  const renderFunction = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
-    let selectVal = JSON.parse(jsonValue).find((item) => JSON.stringify(item) === JSON.stringify(route.params.item))
-    setGroupData(JSON.parse(jsonValue))
-    setSelectedValue(selectVal.groupName)
-    setSelectedGroupData(selectVal)
-  }
+    let selectVal = JSON.parse(jsonValue).find(
+      item => JSON.stringify(item) === JSON.stringify(route.params.item),
+    );
+    setGroupData(JSON.parse(jsonValue));
+    setSelectedValue(selectVal.groupName);
+    setSelectedGroupData(selectVal);
+  };
 
-  const handleExpenseData = async() => {
+  const handleExpenseData = async () => {
     let expenseData = {
       desc: desc,
       price: price,
-      selectGroup: selectedValue
-    }
-    let PaymentData = [...selectedGroupData.payments, expenseData]
-    console.log('groupData:: ', PaymentData)
+      selectGroup: selectedValue,
+    };
+    let PaymentData = [...selectedGroupData.payments, expenseData];
+    console.log('groupData:: ', PaymentData);
     // dispatch(addExpense(expenseData))
     // navigation.goBack()
-  }
+  };
   return (
     <SafeAreaView
-      style={{paddingHorizontal: 10, backgroundColor: '#fff', flex: 1}}>
+      style={{paddingHorizontal: wp(5), backgroundColor: '#fff', flex: 1}}>
+      <Spacer height={hp(3)} />
       <View style={styles.rowView}>
         <View style={styles.innerRowView}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -58,9 +61,14 @@ const AddExpense = ({ navigation, route }) => {
       </View>
       <Spacer height={hp(3)} />
       <View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontSize: 15, color: '#000', marginLeft: 10 }}>With you and : </Text>
-          <SelectBox setSelectedValue={setSelectedValue} selectedValue={selectedValue} />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{fontSize: 15, color: '#000', marginLeft: 10}}>
+            With you and :{' '}
+          </Text>
+          <SelectBox
+            setSelectedValue={setSelectedValue}
+            selectedValue={selectedValue}
+          />
         </View>
         <Spacer height={hp(1)} />
         <View
@@ -111,7 +119,7 @@ const AddExpense = ({ navigation, route }) => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default AddExpense
+export default AddExpense;
