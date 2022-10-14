@@ -7,23 +7,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { styles } from './style';
+import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { hp, wp } from '../../../utility/responsive/responsive';
+import {hp, wp} from '../../../utility/responsive/responsive';
 import Spacer from '../../../components/Spacer';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from '../../../store/action/actions';
-import { AppLocalizedStrings } from '../../../localization/Localization';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteContact} from '../../../store/action/actions';
+import {AppLocalizedStrings} from '../../../localization/Localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ExpenseList from '../../../components/ExpenseList'
+import ExpenseList from '../../../components/ExpenseList';
 
-const ContactDetailScreen = ({ route, navigation }) => {
-  const { item, index } = route?.params;
-  const groupData = useSelector(state => state.group.group);
-  let data = groupData?.find((item) => item?.id === route?.params?.item?.id)
+const ContactDetailScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
+  const {item, index} = route?.params;
+  const group = route?.params?.item?.groupName;
+  const groupData = useSelector(state => state.group.group);
+  const contactData = useSelector(state => state.contact.contact);
+  let data = group != null ? groupData[index] : contactData[index];
+  // ?.find(
+  //   item => item?.uniqueId === route?.params?.item?.uniqueId,
+  // );
 
   const deleteHandler = async () => {
     let jsonValue = await AsyncStorage.getItem('friendData');
@@ -37,11 +42,11 @@ const ContactDetailScreen = ({ route, navigation }) => {
   };
 
   const editHandler = () => {
-    navigation.navigate(AppLocalizedStrings.screen.addContact, { item, index });
+    navigation.navigate(AppLocalizedStrings.screen.addContact, {item, index});
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <View style={styles.screen}>
         <StatusBar
           barStyle="dark-content"
@@ -53,7 +58,7 @@ const ContactDetailScreen = ({ route, navigation }) => {
             <View style={styles.rowView}>
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
-                style={{ flex: 1 }}>
+                style={{flex: 1}}>
                 <Icon name="arrow-back" size={30} color="#ffff" />
               </TouchableOpacity>
               {/* <Icon name="settings-outline" size={25} color="#ffff" /> */}
@@ -78,7 +83,7 @@ const ContactDetailScreen = ({ route, navigation }) => {
               source={require('../../../images/images.jpg')}
             />
           </View>
-          <View style={{ marginTop: hp(45 / 8), marginLeft: wp(11) }}>
+          <View style={{marginTop: hp(45 / 8), marginLeft: wp(11)}}>
             <Text style={styles.textStyle}>
               {item?.groupName ?? item?.name}
             </Text>
@@ -93,7 +98,7 @@ const ContactDetailScreen = ({ route, navigation }) => {
       <View style={styles.addExpenseSection}>
         <TouchableOpacity
           style={styles.addExpenseBtn}
-          onPress={() => navigation.navigate('AddExpense', { item })}>
+          onPress={() => navigation.navigate('AddExpense', {item})}>
           <FontIcon name="file-alt" color="#fff" size={22} />
           <Text style={styles.expenseTitle}>Add expense</Text>
         </TouchableOpacity>

@@ -8,11 +8,9 @@ import AdaptiveIconButton from '../../../components/AdaptiveIconButton';
 import {AppLocalizedStrings} from '../../../localization/Localization';
 import {useSelector} from 'react-redux';
 import ContactView from '../../../components/app/Friends/ContactView';
-// https://img.freepik.com/free-vector/group-young-people-posing-photo_52683-18823.jpg?size=338&ext=jpg&ga=GA1.2.1599401084.1665473402
 
 const FriendsScreen = ({navigation}) => {
   const contacts = useSelector(s => s.contact.contact);
-  console.log('contacts', contacts);
   const buttonHandler = () => {
     navigation.navigate(AppLocalizedStrings.screen.addContact);
   };

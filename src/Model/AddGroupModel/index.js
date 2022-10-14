@@ -9,10 +9,10 @@ import {
 import React, {useState} from 'react';
 import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TextInput } from 'react-native-paper';
-import { hp, wp } from '../../utility/responsive/responsive';
+import {TextInput} from 'react-native-paper';
+import {hp, wp} from '../../utility/responsive/responsive';
 import Spacer from '../../components/Spacer';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import typeList from '../../mock/typeList.json';
@@ -48,29 +48,29 @@ const AddGroupModel = props => {
     );
   };
 
-  const handleGroupData = async() => {
+  const handleGroupData = async () => {
     let uniqueId = uuid.v4();
-    let allGroupData = []
+    let allGroupData = [];
     let groupData = {
-      id: uniqueId,
+      uniqueId,
       groupName: groupName,
       groupType: groupType,
       groupLogo: '',
-      payments: []
-    }
+      payments: [],
+    };
     let jsonValue = await AsyncStorage.getItem('groupData');
-    jsonValue = JSON.parse(jsonValue)
-    if(jsonValue != null){
-      allGroupData = [...jsonValue, groupData]
+    jsonValue = JSON.parse(jsonValue);
+    if (jsonValue != null) {
+      allGroupData = [...jsonValue, groupData];
     } else {
-      allGroupData = [groupData]
+      allGroupData = [groupData];
     }
     await AsyncStorage.setItem('groupData', JSON.stringify(allGroupData));
     // await AsyncStorage.removeItem('groupData')
-    props.onPress()
-    setGroupName('')
-    setGroupType('')
-  }
+    props.onPress();
+    setGroupName('');
+    setGroupType('');
+  };
 
   return (
     <Modal animationType="slide" transparent={true} visible={props.isVisible}>

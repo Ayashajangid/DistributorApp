@@ -13,10 +13,7 @@ const App = () => {
       let jsonValue = await AsyncStorage.getItem('friendData');
       jsonValue = JSON.parse(jsonValue);
       if (jsonValue != null) {
-        for (let i = 0; i < jsonValue.length; i++) {
-          const element = jsonValue[i];
-          store.dispatch(addContact(element));
-        }
+        store.dispatch(addContact(jsonValue));
       }
     };
     getData();

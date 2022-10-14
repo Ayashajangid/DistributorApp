@@ -7,10 +7,12 @@ import AdaptiveIconButton from '../AdaptiveIconButton';
 import AddGroupModel from '../../Model/AddGroupModel';
 
 const GroupList = props => {
-  const renderData = item => {
+  const renderData = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('ContactDetailScreen', {item})}
+        onPress={() =>
+          props.navigation.navigate('ContactDetailScreen', {item, index})
+        }
         style={styles.groupOuterSection}>
         <View>
           <Image
@@ -35,7 +37,7 @@ const GroupList = props => {
         <FlatList
           data={props.groupData}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => renderData(item)}
+          renderItem={({item, index}) => renderData(item, index)}
           keyExtractor={(item, index) => index.toString()}
           ListFooterComponent={() => {
             return (

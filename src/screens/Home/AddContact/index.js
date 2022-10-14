@@ -32,10 +32,10 @@ const AddContact = ({navigation, route}) => {
         allFriendData = [value];
       }
       await AsyncStorage.setItem('friendData', JSON.stringify(allFriendData));
+      dispatch(addContact(allFriendData));
     } catch (e) {
       console.log('storeData', e);
     }
-    dispatch(addContact(value));
     navigation.goBack();
   };
   const updateContact = async () => {

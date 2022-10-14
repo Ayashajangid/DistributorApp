@@ -11,7 +11,6 @@ const GroupScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
   const [groupData, setGroupData] = useState([]);
-
   useEffect(() => {
     getRenderData();
   }, [navigation, isVisible]);

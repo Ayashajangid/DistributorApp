@@ -1,11 +1,4 @@
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {SafeAreaView, View, Text, Platform} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,13 +12,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import uuid from 'react-native-uuid';
-import { addGroup } from '../../../store/action/actions';
+import {addContact, addGroup} from '../../../store/action/actions';
 
 const AddExpense = ({navigation, route}) => {
+  const groupName = route?.params?.item?.groupName;
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
   const [selectedValue, setSelectedValue] = useState('select');
-  const [selectedGroupData, setSelectedGroupData] = useState({});
   const [groupData, setGroupData] = useState([]);
   const dispatch = useDispatch();
 
@@ -34,13 +27,15 @@ const AddExpense = ({navigation, route}) => {
   }, [navigation]);
 
   const renderFunction = async () => {
-    const jsonValue = await AsyncStorage.getItem('groupData');
-    let selectVal = JSON.parse(jsonValue).find(
-      item => item.id === route.params.item.id,
+    const jsonValue = await AsyncStorage.getItem(
+      groupName != undefined ? 'groupData' : 'friendData',
     );
-    setGroupData(JSON.parse(jsonValue));
-    setSelectedValue(route.params.item.groupName);
-    setSelectedGroupData(selectVal);
+    if (jsonValue != null) {
+      setGroupData(JSON.parse(jsonValue));
+    }
+    setSelectedValue(
+      route?.params?.item?.groupName ?? route?.params?.item?.name,
+    );
   };
 
   const handleExpenseData = async () => {
@@ -49,44 +44,29 @@ const AddExpense = ({navigation, route}) => {
       desc: desc,
       price: price,
       selectGroup: selectedValue,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
-    let expenseGroupData = groupData.map((item) => {
-      if(item.id === route.params.item.id){
+    let expenseGroupData = groupData.map(item => {
+      if (item.uniqueId === route.params.item.uniqueId) {
         item.payments.push(expenseData);
       }
       return item;
-    })
-    await AsyncStorage.setItem('groupData', JSON.stringify(expenseGroupData));
-    // dispatch(addExpense(expenseData))
-    dispatch(addGroup(expenseGroupData))
-    setSelectedValue('select')
-    navigation.goBack()
+    });
+    await AsyncStorage.setItem(
+      groupName != undefined ? 'groupData' : 'friendData',
+      JSON.stringify(expenseGroupData),
+    );
+    dispatch(addContact(expenseGroupData));
+    setSelectedValue('select');
+    navigation.goBack();
   };
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView style={styles.mainView}>
-        {/* <Spacer height={hp(3)} /> */}
-        {/* <View style={styles.rowView}>
-          <View style={styles.innerRowView}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Icon name="arrow-back" color="black" size={28} />
-            </TouchableOpacity>
-            <Text style={styles.headerText}>Add expense</Text>
-          </View>
-          <TouchableOpacity onPress={() => handleExpenseData()}>
-            <Icon name="checkmark" color="black" size={28} />
-          </TouchableOpacity>
-        </View> */}
-        {/* <Spacer height={hp(3)} /> */}
-
         <View style={styles.rowView}>
           <Text style={styles.withText}>With you and :</Text>
-          {route?.params?.item ?? route?.params?.item?.name ? (
-            <Text style={styles.withText}>
-              {selectedValue}
-              {route?.params?.item?.name}
-            </Text>
+          {route?.params?.item ? (
+            <Text style={styles.withText}>{selectedValue}</Text>
           ) : (
             <View
               style={
