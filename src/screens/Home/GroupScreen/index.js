@@ -1,48 +1,46 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { styles } from './style';
+import {styles} from './style';
 import GroupList from '../../../components/GroupList';
-import { useDispatch } from 'react-redux';
-import { changeRoute, addGroup } from '../../../store/action/actions';
+import {useDispatch} from 'react-redux';
+import {changeRoute, addGroup} from '../../../store/action/actions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { logout } from '../../../firebaseAuth/auth';
 
-const GroupScreen = ({ navigation }) => {
+const GroupScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
-  const [groupData, setGroupData] = useState([])
+  const [groupData, setGroupData] = useState([]);
 
   useEffect(() => {
-    getRenderData()
-  }, [navigation, isVisible])
+    getRenderData();
+  }, [navigation, isVisible]);
 
   const getRenderData = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
-    console.log('JSON.parse(jsonValue): ', JSON.parse(jsonValue))
-    setGroupData(JSON.parse(jsonValue))
-    dispatch(addGroup(JSON.parse(jsonValue)))
-  }
+    setGroupData(JSON.parse(jsonValue));
+    dispatch(addGroup(JSON.parse(jsonValue)));
+  };
 
   const newGroupHandler = () => {
     setIsVisible(true);
   };
 
-  const logoutHandler = async () => {
-    const res = logout();
-    await AsyncStorage.removeItem('userLogin');
-    dispatch(changeRoute(1));
-  };
-
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <View style={styles.mainContainer}>
           <View style={styles.headerView}>
             <Text style={styles.groupTitle}>You are all settled up!</Text>
             <Icon name="sliders-h" color="#000" size={22} />
           </View>
-          <GroupList navigation={navigation} groupData={groupData} newGroupHandler={newGroupHandler} setIsVisible={setIsVisible} isVisible={isVisible}/>
+          <GroupList
+            navigation={navigation}
+            groupData={groupData}
+            newGroupHandler={newGroupHandler}
+            setIsVisible={setIsVisible}
+            isVisible={isVisible}
+          />
           {/* <AdaptiveIconButton
             title="Start a new group"
             icon="person-add"

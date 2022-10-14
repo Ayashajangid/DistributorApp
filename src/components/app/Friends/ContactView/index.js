@@ -10,13 +10,13 @@ const ContactView = ({item, onPress}) => {
       <Image
         style={styles.imageStyle}
         source={{
-          uri: item.image,
+          uri: item?.image,
         }}
       />
       <Spacer width={wp(5)} />
       <View style={styles.nameView}>
         <Text numberOfLines={1} style={styles.nameText}>
-          {item.name}
+          {item?.name}
         </Text>
       </View>
       <Text style={styles.expensesText}>no expenses</Text>
