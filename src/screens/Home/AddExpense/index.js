@@ -31,20 +31,20 @@ const AddExpense = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log({route})
     route?.params?.item && renderFunction();
   }, [navigation]);
-  
+
   const renderFunction = async () => {
     const jsonValue = await AsyncStorage.getItem('groupData');
     let selectVal = JSON.parse(jsonValue).find(
-      item => item.id === route.params.item.id
+      item => item.id === route.params.item.id,
     );
     // console.log('selectVal?.groupName: ', selectVal?.groupName)
     setGroupData(JSON.parse(jsonValue));
     setSelectedValue(route.params.item.groupName);
     setSelectedGroupData(selectVal);
   };
+  console.log(groupData);
 
   const handleExpenseData = async () => {
     let expenseData = {
@@ -53,16 +53,15 @@ const AddExpense = ({navigation, route}) => {
       price: price,
       selectGroup: selectedValue,
     };
-    groupData.map((item) => {
-      if(item.id === route.params.item.id){
+    groupData.map(item => {
+      if (item.id === route?.params?.item?.id) {
         item.payments.push(expenseData);
       }
-    })
-    console.log({groupData})
+    });
     await AsyncStorage.setItem('groupData', JSON.stringify(groupData));
     // dispatch(addExpense(expenseData))
-    setSelectedValue('select')
-    navigation.goBack()
+    setSelectedValue('select');
+    navigation.goBack();
   };
   return (
     <SafeAreaView style={styles.screen}>
@@ -83,20 +82,24 @@ const AddExpense = ({navigation, route}) => {
 
         <View style={styles.rowView}>
           <Text style={styles.withText}>With you and :</Text>
-          {
-            route?.params?.item ? 
-            <Text style={styles.withText}>{selectedValue}</Text>
-            : <View
-            style={
-              Platform.OS == 'ios'
-                ? {postion: 'absolute', top: -22, left: 20}
-                : null
-            }>
-            <SelectBox
-              setSelectedValue={setSelectedValue}
-              selectedValue={selectedValue}
-            />
-          </View>}
+          {route?.params?.item ?? route?.params?.item?.name ? (
+            <Text style={styles.withText}>
+              {selectedValue}
+              {route?.params?.item?.name}
+            </Text>
+          ) : (
+            <View
+              style={
+                Platform.OS == 'ios'
+                  ? {postion: 'absolute', top: -22, left: 20}
+                  : null
+              }>
+              <SelectBox
+                setSelectedValue={setSelectedValue}
+                selectedValue={selectedValue}
+              />
+            </View>
+          )}
         </View>
         <Spacer height={hp(3)} />
         <View
@@ -138,7 +141,7 @@ const AddExpense = ({navigation, route}) => {
         </View>
         <Spacer height={hp(4)} />
         <AdaptiveButton
-        onPress={() => handleExpenseData()}
+          onPress={() => handleExpenseData()}
           title="Save"
           style={{width: wp(65), alignSelf: 'center'}}
         />

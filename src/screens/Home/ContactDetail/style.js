@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   rowView: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     paddingBottom: hp(5),
   },
   contentView: {
@@ -44,8 +44,8 @@ export const styles = StyleSheet.create({
   },
   addExpenseSection: {
     position: 'absolute',
-    bottom: 20,
-    right: 20,
+    bottom: 60,
+    right: 30,
   },
   addExpenseBtn: {
     backgroundColor: '#17a57f',

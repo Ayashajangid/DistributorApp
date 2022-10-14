@@ -31,7 +31,6 @@ const GroupList = props => {
   return (
     <>
       <Spacer height={hp(3)} />
-      {console.log('props.groupData: ', props.groupData)}
       {props.groupData?.length > 0 ? (
         <FlatList
           data={props.groupData}
@@ -41,6 +40,7 @@ const GroupList = props => {
           ListFooterComponent={() => {
             return (
               <>
+                <Spacer height={hp(2)} />
                 <AdaptiveIconButton
                   title="Start a new group"
                   icon="person-add"

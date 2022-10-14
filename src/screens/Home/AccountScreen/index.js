@@ -11,10 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {changeRoute} from '../../../store/action/actions';
 import {useDispatch} from 'react-redux';
 
-
 const AccountScreen = () => {
   const res = useSelector(state => state.google.data);
-  console.log(res);
   const image =
     res?.user?.photoURL ||
     'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
