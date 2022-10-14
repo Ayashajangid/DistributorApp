@@ -4,7 +4,7 @@ import {hp, wp} from '../../../utility/responsive/responsive';
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
   },
   topView: {
     paddingTop: hp(7),
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     paddingBottom: hp(5),
   },
   contentView: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     position: 'relative',
     paddingHorizontal: wp(5),

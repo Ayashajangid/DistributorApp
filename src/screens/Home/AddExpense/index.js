@@ -14,13 +14,12 @@ import {TextInput} from 'react-native-paper';
 import Spacer from '../../../components/Spacer';
 import {hp, wp} from '../../../utility/responsive/responsive';
 import SelectBox from '../../../components/SelectBox';
-import {addExpense} from '../../../store/action/actions';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveButton from '../../../components/AdaptiveButton';
-import AdaptiveTextInput from '../../../components/AdaptiveTextInput';
 import uuid from 'react-native-uuid';
+import { addGroup } from '../../../store/action/actions';
 
 const AddExpense = ({navigation, route}) => {
   const [desc, setDesc] = useState('');
@@ -31,7 +30,6 @@ const AddExpense = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log({route})
     route?.params?.item && renderFunction();
   }, [navigation]);
   
@@ -40,7 +38,6 @@ const AddExpense = ({navigation, route}) => {
     let selectVal = JSON.parse(jsonValue).find(
       item => item.id === route.params.item.id
     );
-    // console.log('selectVal?.groupName: ', selectVal?.groupName)
     setGroupData(JSON.parse(jsonValue));
     setSelectedValue(route.params.item.groupName);
     setSelectedGroupData(selectVal);
@@ -52,15 +49,17 @@ const AddExpense = ({navigation, route}) => {
       desc: desc,
       price: price,
       selectGroup: selectedValue,
+      createdAt: new Date()
     };
-    groupData.map((item) => {
+    let expenseGroupData = groupData.map((item) => {
       if(item.id === route.params.item.id){
         item.payments.push(expenseData);
       }
+      return item;
     })
-    console.log({groupData})
-    await AsyncStorage.setItem('groupData', JSON.stringify(groupData));
+    await AsyncStorage.setItem('groupData', JSON.stringify(expenseGroupData));
     // dispatch(addExpense(expenseData))
+    dispatch(addGroup(expenseGroupData))
     setSelectedValue('select')
     navigation.goBack()
   };

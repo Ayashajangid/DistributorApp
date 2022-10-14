@@ -7,16 +7,20 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {styles} from './style';
+import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {hp, wp} from '../../../utility/responsive/responsive';
+import { hp, wp } from '../../../utility/responsive/responsive';
 import Spacer from '../../../components/Spacer';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
+import { useSelector } from 'react-redux';
+import ExpenseList from '../../../components/ExpenseList'
+
 const ContactDetailScreen = ({ route, navigation }) => {
   const { item } = route?.params;
-  console.log({ item })
+  const groupData = useSelector(state => state.group.group);
+  let data = groupData?.find((item) => item?.id === route?.params?.item?.id)
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View style={styles.screen}>
         <StatusBar
           barStyle="dark-content"
@@ -44,19 +48,20 @@ const ContactDetailScreen = ({ route, navigation }) => {
               source={require('../../../images/images.jpg')}
             />
           </View>
-          <View style={{marginTop: hp(45 / 8), marginLeft: wp(11)}}>
+          <View style={{ marginTop: hp(45 / 8), marginLeft: wp(11) }}>
             <Text style={styles.textStyle}>{item.groupName ?? item.name}</Text>
             <Spacer height={hp(1)} />
             <Text style={styles.typeStyle}>
               {item.groupType ?? item.numEmail}
             </Text>
           </View>
+          <ExpenseList data={data} />
         </View>
       </View>
       <View style={styles.addExpenseSection}>
         <TouchableOpacity
           style={styles.addExpenseBtn}
-          onPress={() => navigation.navigate('AddExpense', {item})}>
+          onPress={() => navigation.navigate('AddExpense', { item })}>
           <FontIcon name="file-alt" color="#fff" size={22} />
           <Text style={styles.expenseTitle}>Add expense</Text>
         </TouchableOpacity>
