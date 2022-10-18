@@ -7,6 +7,7 @@ import {AppLocalizedStrings} from '../../localization/Localization';
 import AddContact from '../../screens/Home/AddContact';
 import ContactDetailScreen from '../../screens/Home/ContactDetail';
 import AddExpense from '../../screens/Home/AddExpense';
+import GroupDetail from '../../screens/Home/GroupDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const HomeStack = () => {
           name="AddExpense"
           component={AddExpense}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="GroupDetail"
+          component={GroupDetail}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={AppLocalizedStrings.screen.addContact}

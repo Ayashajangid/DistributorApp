@@ -1,24 +1,25 @@
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {styles} from './style';
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { styles } from './style';
 import GroupList from '../../../components/GroupList';
-import {useDispatch} from 'react-redux';
-import {addGroup} from '../../../store/action/actions';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const GroupScreen = ({navigation}) => {
-  const dispatch = useDispatch();
+const GroupScreen = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [groupData, setGroupData] = useState([]);
+  const groupDetail = useSelector(state => state.group.group);
+
   useEffect(() => {
-    getRenderData();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getRenderData();
+    });
+    getRenderData()
+    return unsubscribe;
   }, [navigation, isVisible]);
 
   const getRenderData = async () => {
-    const jsonValue = await AsyncStorage.getItem('groupData');
-    setGroupData(JSON.parse(jsonValue));
-    dispatch(addGroup(JSON.parse(jsonValue)));
+    setGroupData(groupDetail);
   };
 
   const newGroupHandler = () => {
@@ -27,7 +28,7 @@ const GroupScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View style={styles.mainContainer}>
           <View style={styles.headerView}>
             <Text style={styles.groupTitle}>You are all settled up!</Text>
@@ -40,19 +41,6 @@ const GroupScreen = ({navigation}) => {
             setIsVisible={setIsVisible}
             isVisible={isVisible}
           />
-          {/* <AdaptiveIconButton
-            title="Start a new group"
-            icon="person-add"
-            iconColor="#17a57f"
-            iconSize={20}
-            style={styles.buttonStyle}
-            onPress={newGroupHandler}
-          />
-          <Spacer height={hp(3)} />
-          <AddGroupModel
-            isVisible={isVisible}
-            onPress={() => setIsVisible(false)}
-          /> */}
         </View>
       </View>
       <View style={styles.addExpenseSection}>
