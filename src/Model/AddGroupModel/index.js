@@ -62,7 +62,8 @@ const AddGroupModel = props => {
       groupName: groupName,
       groupType: groupType,
       groupLogo: '',
-      payments: []
+      payments: [],
+      friendList: []
     }
     if(props?.item){
       let data = {
@@ -70,7 +71,8 @@ const AddGroupModel = props => {
         groupName: groupName,
         groupType: groupType,
         groupLogo: '',
-        payments: []
+        payments: [],
+        friendList: []
       }
       props.updateData(data)
       props.onPress()

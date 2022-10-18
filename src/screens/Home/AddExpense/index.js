@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import uuid from 'react-native-uuid';
-import {activity, addContact, addExpense} from '../../../store/action/actions';
+import {activity, addGroup, addContact, addExpense} from '../../../store/action/actions';
 import * as utils from '../../../common/Utils';
 
 const AddExpense = ({navigation, route}) => {
@@ -52,6 +52,12 @@ const AddExpense = ({navigation, route}) => {
       price: price,
       createdAt: utils.dateFormat('MMMM-DD-YYYY, h:mm:ss a'),
     };
+
+    // dispatch(addExpense(expenseData, route?.params?.index));
+    // activityData(expenseData);
+    // setSelectedValue('select');
+    // navigation.goBack();
+
     let expenseGroupData = groupData.map((item) => {
       if (route?.params?.item?.id) {
         if (item.id === route.params.item.id) {

@@ -25,7 +25,6 @@ const GroupDetail = ({ route, navigation }) => {
     const { item } = route?.params;
     const groupData = useSelector(state => state.group.group);
     let data = groupData?.find((item) => item?.id === route?.params?.item?.id)
-    console.log('groupData:', groupData)
     const [groupDetail, setGroupDetail] = useState(data)
     const dispatch = useDispatch();
     useEffect(() => {
@@ -62,7 +61,6 @@ const GroupDetail = ({ route, navigation }) => {
                                 style={{ flex: 1 }}>
                                 <Icon name="arrow-back" size={30} color="#ffff" />
                             </TouchableOpacity>
-                            {/* <Icon name="settings-outline" size={25} color="#ffff" /> */}
                             <TouchableOpacity onPress={() => setIsVisible(true)}>
                                 <CommunityIcons name="delete" size={25} color="#ffff" />
                             </TouchableOpacity>

@@ -80,3 +80,5 @@ const ExpenseList = props => {
         </View>
     )
 }
+
+export default ExpenseList;
