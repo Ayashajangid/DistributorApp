@@ -6,41 +6,33 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {styles} from './style';
+import React, { useEffect, useState } from 'react';
+import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import Spacer from '../../../components/Spacer';
-import {hp, wp} from '../../../utility/responsive/responsive';
+import { hp, wp } from '../../../utility/responsive/responsive';
 import SelectBox from '../../../components/SelectBox';
-import {useDispatch} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import uuid from 'react-native-uuid';
 import { addGroup } from '../../../store/action/actions';
 
-const AddExpense = ({navigation, route}) => {
+const AddExpense = ({ navigation, route }) => {
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
   const [selectedValue, setSelectedValue] = useState('select');
-  const [selectedGroupData, setSelectedGroupData] = useState({});
-  const [groupData, setGroupData] = useState([]);
+  const groupData = useSelector(state => state.group.group);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    route?.params?.item && renderFunction();
+    renderFunction();
   }, [navigation]);
 
   const renderFunction = async () => {
-    const jsonValue = await AsyncStorage.getItem('groupData');
-    let selectVal = JSON.parse(jsonValue).find(
-      item => item.id === route.params.item.id,
-    );
-    setGroupData(JSON.parse(jsonValue));
-    setSelectedValue(route.params.item.groupName);
-    setSelectedGroupData(selectVal);
+    setSelectedValue(route?.params?.item?.groupName);
   };
 
   const handleExpenseData = async () => {
@@ -52,13 +44,17 @@ const AddExpense = ({navigation, route}) => {
       createdAt: new Date()
     };
     let expenseGroupData = groupData.map((item) => {
-      if(item.id === route.params.item.id){
-        item.payments.push(expenseData);
+      if (route?.params?.item?.id) {
+        if (item.id === route.params.item.id) {
+          item.payments.push(expenseData);
+        }
+      } else {
+        if (item.groupName === selectedValue) {
+          item.payments.push(expenseData);
+        }
       }
       return item;
     })
-    await AsyncStorage.setItem('groupData', JSON.stringify(expenseGroupData));
-    // dispatch(addExpense(expenseData))
     dispatch(addGroup(expenseGroupData))
     setSelectedValue('select')
     navigation.goBack()
@@ -91,7 +87,7 @@ const AddExpense = ({navigation, route}) => {
             <View
               style={
                 Platform.OS == 'ios'
-                  ? {postion: 'absolute', top: -22, left: 20}
+                  ? { postion: 'absolute', top: -22, left: 20 }
                   : null
               }>
               <SelectBox
@@ -127,7 +123,7 @@ const AddExpense = ({navigation, route}) => {
               <IconFontAwesome name="inr" color="black" size={28} />
             </View>
             <Spacer width={wp(4)} />
-            <View style={{backgroundColor: '#fff', height: 50}}>
+            <View style={{ backgroundColor: '#fff', height: 50 }}>
               <TextInput
                 value={price}
                 onChangeText={text => setPrice(text)}
@@ -143,7 +139,7 @@ const AddExpense = ({navigation, route}) => {
         <AdaptiveButton
           onPress={() => handleExpenseData()}
           title="Save"
-          style={{width: wp(65), alignSelf: 'center'}}
+          style={{ width: wp(65), alignSelf: 'center' }}
         />
       </KeyboardAvoidingView>
     </SafeAreaView>

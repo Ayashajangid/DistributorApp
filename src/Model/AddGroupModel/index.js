@@ -6,25 +6,31 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './style';
+import React, { useState, useEffect } from 'react';
+import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from 'react-native-paper';
 import { hp, wp } from '../../utility/responsive/responsive';
 import Spacer from '../../components/Spacer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import KeyboardAvoidingView from '../../components/Keyboard/KeyboardAvoidingView';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import typeList from '../../mock/typeList.json';
 import uuid from 'react-native-uuid';
+import { addGroup } from '../../store/action/actions';
 
 const AddGroupModel = props => {
   const [data, setData] = useState(typeList);
   const [groupName, setGroupName] = useState('');
   const [groupType, setGroupType] = useState('');
   const dispatch = useDispatch();
+  const groupDetail = useSelector(state => state.group.group);
 
-  const renderGroupType = ({item}) => {
+  useEffect(() => {
+    setGroupName(props?.item?.groupName)
+    setGroupType(props?.item?.groupType)
+  }, [props?.item])
+
+  const renderGroupType = ({ item }) => {
     return (
       <TouchableOpacity
         style={[
@@ -40,7 +46,7 @@ const AddGroupModel = props => {
         <Text
           style={[
             styles.typeTitle,
-            {color: groupType === item.title ? '#599f8b' : '#7f8188'},
+            { color: groupType === item.title ? '#599f8b' : '#7f8188' },
           ]}>
           {item.title}
         </Text>
@@ -48,7 +54,7 @@ const AddGroupModel = props => {
     );
   };
 
-  const handleGroupData = async() => {
+  const handleGroupData = async () => {
     let uniqueId = uuid.v4();
     let allGroupData = []
     let groupData = {
@@ -58,22 +64,32 @@ const AddGroupModel = props => {
       groupLogo: '',
       payments: []
     }
-    let jsonValue = await AsyncStorage.getItem('groupData');
-    jsonValue = JSON.parse(jsonValue)
-    if(jsonValue != null){
-      allGroupData = [...jsonValue, groupData]
-    } else {
-      allGroupData = [groupData]
+    if(props?.item){
+      let data = {
+        id: props?.item?.id,
+        groupName: groupName,
+        groupType: groupType,
+        groupLogo: '',
+        payments: []
+      }
+      props.updateData(data)
+      props.onPress()
+      return;
+    }else {
+      if (groupDetail != null) {
+        allGroupData = [...groupDetail, groupData]
+      } else {
+        allGroupData = [groupData]
+      }
     }
-    await AsyncStorage.setItem('groupData', JSON.stringify(allGroupData));
-    // await AsyncStorage.removeItem('groupData')
+    dispatch(addGroup(allGroupData))
     props.onPress()
     setGroupName('')
     setGroupType('')
   }
 
   return (
-    <Modal animationType="slide" transparent={true} visible={props.isVisible}>
+    <Modal animationType="slide" transparent={false} visible={props.isVisible} >
       <SafeAreaView style={styles.mainView}>
         <KeyboardAvoidingView style={styles.screen}>
           <View style={styles.rowView}>
@@ -81,7 +97,7 @@ const AddGroupModel = props => {
               <TouchableOpacity onPress={props.onPress}>
                 <Icon name="close" color="black" size={28} />
               </TouchableOpacity>
-              <Text style={styles.headerText}>Create a group</Text>
+              <Text style={styles.headerText}>{props?.item ? 'Edit Group' : 'Create a group'}</Text>
             </View>
             <TouchableOpacity onPress={() => handleGroupData()}>
               <Text style={styles.saveText}>Save</Text>

@@ -10,7 +10,7 @@ const GroupList = props => {
   const renderData = item => {
     return (
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('ContactDetailScreen', {item})}
+        onPress={() => props.navigation.navigate('GroupDetail', {item})}
         style={styles.groupOuterSection}>
         <View>
           <Image

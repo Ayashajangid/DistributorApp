@@ -5,13 +5,12 @@ import Spacer from '../Spacer';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ConfirmationModel from '../../Model/ConfirmationModel'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { addGroup } from '../../store/action/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { styles } from './style'
 
 const ExpenseList = props => {
     const [isVisible, setIsVisible] = useState(false);
-    const [removeData, setRemoveData] = useState([]);
     const [selectItem, setSelectItem] = useState('')
     const dispatch = useDispatch();
     const groupData = useSelector(state => state.group.group);
@@ -20,22 +19,22 @@ const ExpenseList = props => {
         let month = moment(item.createdAt).format("MMM")
         let year = moment(item.createdAt).format("YYYY")
         return (
-            <View style={{ flexDirection: 'row', paddingVertical: hp(1), borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
-                <View style={{ flexDirection: 'row', flex: 2 }}>
-                    <View style={{ padding: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ccc', borderRadius: 10 }}>
+            <View style={styles.expenseSection}>
+                <View style={styles.expenseInnerSection}>
+                    <View style={styles.dateSection}>
                         <Text style={{ fontSize: 30 }}>{date}</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Text>{month} </Text>
                             <Text>{year}</Text>
                         </View>
                     </View>
-                    <View style={{ marginLeft: 20, justifyContent: 'center', alignItems: 'flex-start' }}>
-                        <Text style={{ fontSize: 20, color: '#000' }}>{item.desc}</Text>
+                    <View style={styles.detailSection}>
+                        <Text style={styles.desc}>{item.desc}</Text>
                         <Spacer height={hp(1)} />
                         <Text style={{ fontSize: 15 }}>{item.price}</Text>
                     </View>
                 </View>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                <View style={styles.deleteBtn}>
                     <TouchableOpacity onPress={() => RemovePayment(item.paymentId)}>
                         <Icon
                             name='delete'
@@ -61,7 +60,6 @@ const ExpenseList = props => {
                 }
                 return item;
             })
-            await AsyncStorage.setItem('groupData', JSON.stringify(removePaymentData));
             dispatch(addGroup(removePaymentData))
         }
     }
@@ -79,9 +77,6 @@ const ExpenseList = props => {
                 onSubmitBtn={(val) => OnSubmitFunction(val)}
                 cancelBtn='Cancel'
             />
-            {/* <Modal animationType="slide" transparent={true} visible={isVisible}>
-                <Text>modal</Text>
-            </Modal> */}
         </View>
     )
 }
