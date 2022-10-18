@@ -12,14 +12,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import KeyboardAvoidingView from '../../../components/Keyboard/KeyboardAvoidingView';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import uuid from 'react-native-uuid';
-import {addContact, addGroup} from '../../../store/action/actions';
+import {activity, addContact, addExpense} from '../../../store/action/actions';
+import * as utils from '../../../common/Utils';
 
 const AddExpense = ({navigation, route}) => {
-  const groupName = route?.params?.item?.groupName;
+  const name = route?.params?.item?.name;
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
   const [selectedValue, setSelectedValue] = useState('select');
-  const [groupData, setGroupData] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,15 +27,15 @@ const AddExpense = ({navigation, route}) => {
   }, [navigation]);
 
   const renderFunction = async () => {
-    const jsonValue = await AsyncStorage.getItem(
-      groupName != undefined ? 'groupData' : 'friendData',
+    setSelectedValue(name);
+  };
+
+  const activityData = async data => {
+    data.action = 'added';
+    Object.keys(route.params.item).map(
+      item => item != 'payments' && (data[item] = route.params.item[item]),
     );
-    if (jsonValue != null) {
-      setGroupData(JSON.parse(jsonValue));
-    }
-    setSelectedValue(
-      route?.params?.item?.groupName ?? route?.params?.item?.name,
-    );
+    dispatch(activity(data));
   };
 
   const handleExpenseData = async () => {
@@ -43,20 +43,10 @@ const AddExpense = ({navigation, route}) => {
       paymentId: uuid.v4(),
       desc: desc,
       price: price,
-      selectGroup: selectedValue,
-      createdAt: new Date(),
+      createdAt: utils.dateFormat('MMMM-DD-YYYY, h:mm:ss a'),
     };
-    let expenseGroupData = groupData.map(item => {
-      if (item.uniqueId === route.params.item.uniqueId) {
-        item.payments.push(expenseData);
-      }
-      return item;
-    });
-    await AsyncStorage.setItem(
-      groupName != undefined ? 'groupData' : 'friendData',
-      JSON.stringify(expenseGroupData),
-    );
-    dispatch(addContact(expenseGroupData));
+    dispatch(addExpense(expenseData, route?.params?.index));
+    activityData(expenseData);
     setSelectedValue('select');
     navigation.goBack();
   };

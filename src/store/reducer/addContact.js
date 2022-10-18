@@ -2,6 +2,7 @@ import {
   ADD_CONTACT,
   ADD_EXPENSE,
   DELETE_CONTACT,
+  DELETE_EXPENSE,
   EDIT_CONTACT,
 } from '../action/actions';
 
@@ -13,7 +14,7 @@ const contactReducer = (state = initialState, action) => {
     case ADD_CONTACT:
       return {
         ...state,
-        contact: action.payload,
+        contact: [...state.contact, action.payload],
       };
     case DELETE_CONTACT:
       return {
@@ -23,16 +24,27 @@ const contactReducer = (state = initialState, action) => {
     case EDIT_CONTACT:
       const obj = action.payload.data;
       const index = action.payload.index;
-      state.contact[index] = obj;
+      state.contact[index] = {...state.contact[index], ...obj};
       return {
         ...state,
         contact: [...state.contact],
       };
     case ADD_EXPENSE:
-      state.contact[index];
+      const expObj = action.payload.data;
+      const ind = action.payload.index;
+      state.contact[ind].payments.push(expObj);
       return {
         ...state,
-        contact: [...state.contact, action.payload],
+        contact: [...state.contact],
+      };
+    case DELETE_EXPENSE:
+      const id = action.payload.id;
+      state.contact[action.payload.index].payments = state.contact[
+        action.payload.index
+      ].payments.filter(item => item.paymentId != id);
+      return {
+        ...state,
+        contact: [...state.contact],
       };
     default:
       return state;

@@ -53,7 +53,7 @@ const TabStack = () => {
         name="ActivityScreen"
         component={ActivityScreen}
         options={{
-          // headerShown: false,
+          headerShown: false,
           tabBarActiveTintColor: 'rgba(75,160,130,1)',
           headerTitleAlign: 'center',
           tabBarLabel: 'Activity',

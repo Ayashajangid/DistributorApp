@@ -16,14 +16,12 @@ const FriendsScreen = ({navigation}) => {
   };
   const onPressHandler = (item, index) => {
     navigation.navigate(AppLocalizedStrings.screen.contactDetail, {
-      item,
-      index,
+      item: item,
+      index: index,
     });
   };
   const renderItem = ({item, index}) => {
-    return (
-      <ContactView item={item} onPress={() => onPressHandler(item, index)} />
-    );
+    return <ContactView item={item} index={index} onPress={onPressHandler} />;
   };
   return (
     <SafeAreaView style={styles.screen}>

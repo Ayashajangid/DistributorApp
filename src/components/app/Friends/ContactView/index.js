@@ -4,9 +4,11 @@ import {styles} from './style';
 import Spacer from '../../../Spacer';
 import {wp} from '../../../../utility/responsive/responsive';
 
-const ContactView = ({item, onPress}) => {
+const ContactView = ({item, index, onPress}) => {
   return (
-    <TouchableOpacity style={styles.mainView} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.mainView}
+      onPress={() => onPress(item, index)}>
       <Image
         style={styles.imageStyle}
         source={{

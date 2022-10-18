@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     paddingBottom: hp(5),
   },
   contentView: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#fff',
     position: 'relative',
     paddingHorizontal: wp(5),
@@ -64,5 +64,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     height: '100%',
+  },
+  greenText: {
+    fontWeight: '600',
+    color: 'green',
   },
 });

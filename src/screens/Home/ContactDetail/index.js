@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,31 +16,31 @@ import FontIcon from 'react-native-vector-icons/FontAwesome5';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteContact} from '../../../store/action/actions';
 import {AppLocalizedStrings} from '../../../localization/Localization';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import ExpenseList from '../../../components/ExpenseList';
+import NewList from '../../../components/NewList';
 
 const ContactDetailScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
+  const [price, setprice] = useState();
   const {item, index} = route?.params;
-  const group = route?.params?.item?.groupName;
-  const groupData = useSelector(state => state.group.group);
+  // const group = route?.params?.item?.groupName;
+  // const groupData = useSelector(state => state.group.group);
   const contactData = useSelector(state => state.contact.contact);
-  let data = group != null ? groupData[index] : contactData[index];
+  let data = contactData[index];
   // ?.find(
   //   item => item?.uniqueId === route?.params?.item?.uniqueId,
   // );
+  useEffect(() => {
+    let rupees = data?.payments?.reduce(
+      (acc, val) => acc + Number(val.price),
+      0,
+    );
+    setprice(rupees);
+  }, [contactData]);
 
-  const deleteHandler = async () => {
-    let jsonValue = await AsyncStorage.getItem('friendData');
-    jsonValue = JSON.parse(jsonValue);
-    if (jsonValue != null) {
-      jsonValue = jsonValue.filter((item, ind) => index != ind);
-      await AsyncStorage.setItem('friendData', JSON.stringify(jsonValue));
-    }
+  const deleteHandler = () => {
     dispatch(deleteContact(index));
     navigation.goBack();
   };
-
   const editHandler = () => {
     navigation.navigate(AppLocalizedStrings.screen.addContact, {item, index});
   };
@@ -84,21 +84,26 @@ const ContactDetailScreen = ({route, navigation}) => {
             />
           </View>
           <View style={{marginTop: hp(45 / 8), marginLeft: wp(11)}}>
-            <Text style={styles.textStyle}>
-              {item?.groupName ?? item?.name}
-            </Text>
+            <Text style={styles.textStyle}>{item?.name}</Text>
             <Spacer height={hp(1)} />
-            <Text style={styles.typeStyle}>
-              {item?.groupType ?? item?.numEmail}
+            <Text style={{color: '#000'}}>
+              {!price ? (
+                <Text style={styles.typeStyle}>You are settled up</Text>
+              ) : (
+                <Text>
+                  {`${item?.name} owes you `}
+                  <Text style={styles.greenText}> ${price}</Text>
+                </Text>
+              )}
             </Text>
           </View>
-          <ExpenseList data={data} />
+          <NewList data={data} index={index} />
         </View>
       </View>
       <View style={styles.addExpenseSection}>
         <TouchableOpacity
           style={styles.addExpenseBtn}
-          onPress={() => navigation.navigate('AddExpense', {item})}>
+          onPress={() => navigation.navigate('AddExpense', {item, index})}>
           <FontIcon name="file-alt" color="#fff" size={22} />
           <Text style={styles.expenseTitle}>Add expense</Text>
         </TouchableOpacity>

@@ -8,7 +8,6 @@ import AdaptiveTextInput from '../../../components/AdaptiveTextInput';
 import AdaptiveButton from '../../../components/AdaptiveButton';
 import {useDispatch} from 'react-redux';
 import {addContact, editContact} from '../../../store/action/actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
 const AddContact = ({navigation, route}) => {
@@ -22,36 +21,14 @@ const AddContact = ({navigation, route}) => {
   const addNewContact = async () => {
     let uniqueId = uuid.v4();
     const value = {name, numEmail, uniqueId, image, payments: []};
-    let allFriendData = [];
-    try {
-      let jsonValue = await AsyncStorage.getItem('friendData');
-      jsonValue = JSON.parse(jsonValue);
-      if (jsonValue != null) {
-        allFriendData = [...jsonValue, value];
-      } else {
-        allFriendData = [value];
-      }
-      await AsyncStorage.setItem('friendData', JSON.stringify(allFriendData));
-      dispatch(addContact(allFriendData));
-    } catch (e) {
-      console.log('storeData', e);
-    }
+    dispatch(addContact(value));
     navigation.goBack();
   };
   const updateContact = async () => {
     const value = {
       name,
       numEmail,
-      image,
-      payments: [],
-      uniqueId: user?.item?.uniqueId,
     };
-    let jsonValue = await AsyncStorage.getItem('friendData');
-    jsonValue = JSON.parse(jsonValue);
-    if (jsonValue != null) {
-      jsonValue[user.index] = value;
-      await AsyncStorage.setItem('friendData', JSON.stringify(jsonValue));
-    }
     dispatch(editContact(value, user.index));
     navigation.navigate('FriendsScreen');
   };
@@ -84,7 +61,7 @@ const AddContact = ({navigation, route}) => {
           review before sending.
         </Text>
         <Spacer height={hp(3)} />
-        {user == undefined ? (
+        {!user ? (
           <AdaptiveButton title="Save" onPress={addNewContact} />
         ) : (
           <AdaptiveButton title="Update" onPress={updateContact} />

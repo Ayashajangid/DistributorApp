@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from './style';
 import GroupList from '../../../components/GroupList';
 import {useDispatch} from 'react-redux';
-import {changeRoute, addGroup} from '../../../store/action/actions';
+import {addGroup} from '../../../store/action/actions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const GroupScreen = ({navigation}) => {
