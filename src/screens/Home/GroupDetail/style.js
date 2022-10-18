@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#fff',
+    // backgroundColor: 'rgba(31,46,67,1)',
   },
   topView: {
     paddingTop: hp(7),
@@ -17,8 +18,9 @@ export const styles = StyleSheet.create({
     paddingBottom: hp(5),
   },
   contentView: {
-    // flex: 1,
-    backgroundColor: '#fff',
+    flex: 1,
+    // backgroundColor: '#fff',
+    backgroundColor: 'rgba(31,46,67,1)',
     position: 'relative',
     paddingHorizontal: wp(5),
   },
@@ -34,12 +36,12 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 25,
-    color: '#000',
+    color: '#fff',
     fontWeight: '600',
   },
   typeStyle: {
     fontSize: 16,
-    color: '#000',
+    color: '#fff',
     fontWeight: '400',
   },
   addExpenseSection: {
@@ -64,5 +66,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     height: '100%',
+  },
+  nameView: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

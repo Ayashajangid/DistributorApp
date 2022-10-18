@@ -8,6 +8,7 @@ import AddContact from '../../screens/Home/AddContact';
 import ContactDetailScreen from '../../screens/Home/ContactDetail';
 import AddExpense from '../../screens/Home/AddExpense';
 import GroupDetail from '../../screens/Home/GroupDetail';
+import ContactScreen from '../../screens/Home/ContactScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,9 +32,14 @@ const HomeStack = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="ContactScreen"
+          component={ContactScreen}
+          headerTitle="Contacts"
+        />
+        <Stack.Screen
           name={AppLocalizedStrings.screen.addContact}
           component={AddContact}
-          // options={{headerShown: false}}
+          // options={{headerTitle:''}}
         />
         <Stack.Screen
           name={AppLocalizedStrings.screen.contactDetail}
