@@ -20,7 +20,14 @@ const AddContact = ({navigation, route}) => {
 
   const addNewContact = async () => {
     let uniqueId = uuid.v4();
-    const value = {name, numEmail, uniqueId, image, payments: []};
+    const value = {
+      name,
+      numEmail,
+      uniqueId,
+      image,
+      payments: [],
+      groupPayments: [],
+    };
     dispatch(addContact(value));
     navigation.goBack();
   };

@@ -16,8 +16,10 @@ const ContactListView = props => {
           <Text style={{color: '#73777B'}}>{props.item.numEmail}</Text>
         </View>
 
-        {props.selected.some(i => i.numEmail == props.item.numEmail) && (
+        {props.selected.some(i => i.numEmail == props.item.numEmail) ? (
           <Icon name="checkcircle" color="green" size={20} />
+        ) : (
+          <Icon name="checkcircle" color="#ccc" size={20} />
         )}
       </TouchableOpacity>
     </View>

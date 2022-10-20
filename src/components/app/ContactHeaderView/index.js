@@ -10,6 +10,7 @@ const ContactHeaderView = props => {
       <FlatList
         data={props.selected}
         horizontal
+        showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <Spacer width={wp(3)} />}
         renderItem={({item}) => (
           <View style={styles.renderView}>

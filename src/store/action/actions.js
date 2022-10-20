@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 export const CHANGE_ROUTE = 'CHANGE_ROUTE';
 export const ADD_GROUP = 'ADD_GROUP';
 export const GOOGLE_DATA = 'GOOGLE_DATA';
@@ -9,6 +7,7 @@ export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const DELETE_CONTACT = 'DELETE_CONTACT';
 export const EDIT_CONTACT = 'EDIT_CONTACT';
 export const ACTIVITY = 'ACTIVITY';
+export const GROUP_MEMBER = 'GROUP_MEMBER';
 
 export function changeRoute(num) {
   return {
@@ -63,6 +62,12 @@ export function editContact(data, index) {
 export function activity(data) {
   return {
     type: ACTIVITY,
+    payload: data,
+  };
+}
+export function addGroupFriend(data) {
+  return {
+    type: GROUP_MEMBER,
     payload: data,
   };
 }

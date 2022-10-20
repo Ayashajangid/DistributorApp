@@ -34,7 +34,8 @@ const HomeStack = () => {
         <Stack.Screen
           name="ContactScreen"
           component={ContactScreen}
-          headerTitle="Contacts"
+          // headerTitle="Contacts"
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={AppLocalizedStrings.screen.addContact}
